@@ -4,5 +4,5 @@ PROMPT='%F{8}[%F{12}%D{%b %d}%F{8}][%F{5}%T%F{8}][%F{15}%B%~%f%b%F{8}] %f>>'
 # %T - 24hr time
 # %~ - path
 # %B - bold - %b
-RPROMPT='<<:)'
+RPROMPT='<<'
 ~/.local/bin/startup.sh
