@@ -13,6 +13,7 @@
 - rust (use rustup)
 - nodejs (coc.nvim needs this)
 - bat (for fzf.vim)
+
 linux specific:
 - sway (window manager)
 - bemenu (the dmenu of wayland)
@@ -22,6 +23,7 @@ linux specific:
 - brightnessctl (brightness control)
 - playerctl (media player control)
 - yay (for aur)
+
 for fun:
 - cbonsai (pretty trees in your terminal)
 - neofetch (i use arch btw)
