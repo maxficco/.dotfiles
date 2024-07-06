@@ -13,6 +13,7 @@
 - rust (use rustup)
 - nodejs (coc.nvim needs this)
 - bat (for fzf.vim)
+- syncthing (notes syncing)
 
 linux specific:
 - sway (window manager)
