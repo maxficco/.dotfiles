@@ -20,8 +20,6 @@ set $term foot
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $menu bemenu-run
-# bemenu wasn't working on gentoo, so:
-set $BEMENU_BACKEND wayland
 
 smart_borders on
 smart_gaps on
@@ -83,8 +81,7 @@ bindsym $mod+Return exec $term
 bindsym $mod+q kill
 
 # Start your launcher
-# bindsym $mod+d exec $menu
-bindsym $mod+d exec swaymsg exec "BEMENU_BACKEND=$BEMENU_BACKEND bemenu-run"
+bindsym $mod+d exec swaymsg exev $menu
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
