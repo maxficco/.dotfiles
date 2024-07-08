@@ -6,7 +6,7 @@
 - zsh (shell)
 - vim (best text editor)
 - sourcecodepro (nerd font)
-- brave (browser)
+- brave/firefox (browser)
 - python (3)
 - openjdk (java)
 - gcc (c++)
@@ -23,7 +23,7 @@ linux specific:
 - pamixer (volume control)
 - brightnessctl (brightness control)
 - playerctl (media player control)
-- yay (for aur)
+- mpv/vlc (media player)
 
 for fun:
 - cbonsai (pretty trees in your terminal)
