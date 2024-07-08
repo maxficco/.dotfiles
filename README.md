@@ -6,13 +6,14 @@
 - zsh (shell)
 - vim (best text editor)
 - sourcecodepro (nerd font)
-- brave (browser)
+- brave/firefox (browser)
 - python (3)
 - openjdk (java)
 - gcc (c++)
 - rust (use rustup)
 - nodejs (coc.nvim needs this)
 - bat (for fzf.vim)
+- syncthing (notes syncing)
 
 linux specific:
 - sway (window manager)
@@ -22,7 +23,7 @@ linux specific:
 - pamixer (volume control)
 - brightnessctl (brightness control)
 - playerctl (media player control)
-- yay (for aur)
+- mpv/vlc (media player)
 
 for fun:
 - cbonsai (pretty trees in your terminal)
