@@ -22,7 +22,6 @@ set $term foot
 set $menu bemenu-run
 # bemenu wasn't working on gentoo, so:
 set $BEMENU_BACKEND wayland
-exec --no-startup-id export BEMENU_BACKEND=wayland
 
 smart_borders on
 smart_gaps on
@@ -84,7 +83,8 @@ bindsym $mod+Return exec $term
 bindsym $mod+q kill
 
 # Start your launcher
-bindsym $mod+d exec $menu
+# bindsym $mod+d exec $menu
+bindsym $mod+d exec swaymsg exec "BEMENU_BACKEND=$BEMENU_BACKEND bemenu-run"
 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
