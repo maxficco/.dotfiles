@@ -20,6 +20,9 @@ set $term foot
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 set $menu bemenu-run
+# bemenu wasn't working on gentoo, so:
+set $BEMENU_BACKEND wayland
+exec --no-startup-id export BEMENU_BACKEND=wayland
 
 smart_borders on
 smart_gaps on
