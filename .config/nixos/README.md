@@ -15,9 +15,9 @@
 │   └── common.nix
 └── README.md
 ```
-### Setting up a new host
+### Creating a new host
 
-after setting up a basic nixos install and cloning .dotfiles
+after setting up a basic nixos install and cloning .dotfiles:
 ```
 $ cd ~/.dotfiles/.config/nixos
 $ mkdir hosts/new-host
