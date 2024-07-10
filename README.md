@@ -23,7 +23,7 @@ linux specific:
 - pamixer (volume control)
 - brightnessctl (brightness control)
 - playerctl (media player control)
-- mpv/vlc (media player)
+- vlc (media player)
 
 for fun:
 - cbonsai (pretty trees in your terminal)
