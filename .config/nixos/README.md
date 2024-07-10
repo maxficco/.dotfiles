@@ -31,4 +31,4 @@ $ sudo nixos-rebuild switch --flake .#new-host
 $ sudo rm -rf /etc/nixos
 $ sudo ln -s ~/.dotfiles/.config/nixos /etc/nixos
 ```
-this deletes the default configuration files and creates a symlink to /etc/nixos, the default location that `nixos-rebuild` looks to.  In this way, the `--flake` can be omitted in the rebuild command, and configuration is consistant across the machine.
+this deletes the default configuration files and creates a symlink to /etc/nixos, the default location that `nixos-rebuild` looks to.  In this way, the `--flake` can be omitted in the rebuild command.
