@@ -6,16 +6,15 @@
         nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     };
 
-    outputs = { self, nixpkgs, ... }:
+    outputs = { self, nixpkgs, ... } @ inputs:
         let
             lib = nixpkgs.lib;
-            system = "x86_64-linux";
         in {
         nixosConfigurations = {
             champloo = lib.nixosSystem {
                 system = "x86_64-linux";
                 modules = [ 
-                    ./configuration.nix
+                    ./hosts/champloo/configuration.nix
                 ];
             };
         };
