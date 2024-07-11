@@ -23,7 +23,8 @@
         vim # Nano editor is installed by default
         git
         python3
-        python3.setuptools # so qutebrowser works
+        python3Packages.setuptools # so qutebrowser works
+        python3Packages.distutils
         qutebrowser
         bemenu # minimal, like dmenu but for wayland
         cbonsai # pretty trees in your terminal
