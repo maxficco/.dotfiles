@@ -22,12 +22,10 @@
     environment.systemPackages = with pkgs; [
         vim # Nano editor is installed by default
         git
-        python3
-        python3Packages.setuptools # so qutebrowser works
-        qutebrowser
         bemenu # minimal, like dmenu but for wayland
         cbonsai # pretty trees in your terminal
         foot # goated terminal emulator
+        python3
         nodejs_22 # for coc.nvim
         brave # browser
         pamixer
