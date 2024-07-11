@@ -37,7 +37,6 @@
         ani-cli
         stow
         gcc
-        usbutils
         linuxKernel.packages.linux_6_6.rtl88xxau-aircrack
         yazi
         mpv
@@ -48,6 +47,9 @@
     # load driver for Archer AC600 T2U Plus wifi usb antenna, disable native contoller
     boot.extraModulePackages = [ pkgs.linuxKernel.packages.linux_6_6.rtl88xxau-aircrack ];
     boot.blacklistedKernelModules = [ "iwl3945" ];
+
+    # prevent suspending when lid is closed if on AC
+    services.logind.lidSwitchExternalPower = "ignore";
 
     programs.zsh = {
         enable = true;
