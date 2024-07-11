@@ -24,7 +24,6 @@
         git
         python3
         python3Packages.setuptools # so qutebrowser works
-        python3Packages.distutils
         qutebrowser
         bemenu # minimal, like dmenu but for wayland
         cbonsai # pretty trees in your terminal
