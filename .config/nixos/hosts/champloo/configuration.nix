@@ -22,6 +22,9 @@
     environment.systemPackages = with pkgs; [
         vim # Nano editor is installed by default
         git
+        python3
+        python3.setuptools # so qutebrowser works
+        qutebrowser
         bemenu # minimal, like dmenu but for wayland
         cbonsai # pretty trees in your terminal
         foot # goated terminal emulator
@@ -30,7 +33,6 @@
         pamixer
         brightnessctl
         playerctl
-        python3
         bat # for fzf in vim
         neofetch
         cowsay
@@ -41,7 +43,6 @@
         linuxKernel.packages.linux_6_6.rtl88xxau-aircrack
         yazi
         mpv
-        qutebrowser
     ];
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
