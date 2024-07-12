@@ -18,6 +18,7 @@
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
         shell = pkgs.zsh;
+        services.syncthing.enable = true;
     };
 
     environment.systemPackages = with pkgs; [
@@ -42,7 +43,6 @@
         mpv
         syncthing
     ];
-    services.syncthing.enable = true;
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
