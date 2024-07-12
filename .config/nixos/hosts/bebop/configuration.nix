@@ -14,7 +14,6 @@
 
     nix.settings.experimental-features = ["nix-command" "flakes"]; # enable flakes
 
-    systemd.user.startServices = true;
     users.users.maxficco = {
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
@@ -43,18 +42,6 @@
         mpv
         syncthing
     ];
-
-    systemd.user.services.syncthing = {
-        enable = true;
-        description = "Syncthing service";
-        wants = [ "network-online.target" ];
-        after = [ "network-online.target" ];
-        serviceConfig = {
-            ExecStart = "syncthing --no-browser --gui-address=127.0.0.1:8384";
-            Restart = "on-failure";
-        };
-    };
-
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
