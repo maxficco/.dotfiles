@@ -21,8 +21,11 @@ after setting up a basic nixos install and cloning .dotfiles:
 ```
 $ cd ~/.dotfiles/.config/nixos
 $ mkdir hosts/new-host
-$ cp hosts/template/configuration.nix hosts/new-host
+$ cp hosts/template/configuration.nix hosts/new-host # make sure boot options are correct!
 $ cp /etc/nixos/hardware-configuration.nix hosts/new-host
+```
+> don't forget to edit flake.nix, then:
+```
 $ sudo nixos-rebuild switch --flake .#new-host
 ```
 > don't forget to manually add these files to git if wanting to commit/push changes (symptom of using GNU Stow)

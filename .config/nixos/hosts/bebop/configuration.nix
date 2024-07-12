@@ -3,9 +3,9 @@
 {
     imports = [ ./hardware-configuration.nix ];
 
-    # change this for uefi???
-    boot.loader.grub.enable = true;
-    boot.loader.grub.device = "/dev/sda";
+    # Use the systemd-boot EFI boot loader.
+    boot.loader.systemd-boot.enable = true;
+    boot.loader.efi.canTouchEfiVariables = true;
 
     networking.hostName = "bebop";
     networking.networkmanager.enable = true; 
@@ -64,6 +64,6 @@
         enable = true;
         pulse.enable = true;
     };
-# change this??
+
     system.stateVersion = "24.05"; # DO NOT CHANGE THIS!
 }
