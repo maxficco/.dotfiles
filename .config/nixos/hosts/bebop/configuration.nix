@@ -52,9 +52,6 @@
             ExecStart = "${pkgs.syncthing}/bin/syncthing serve --no-browser --gui-address=127.0.0.1:8384";
             Restart = "on-failure";
         };
-        install = {
-            wantedBy = [ "default.target" ];
-        };
     };
 
 
