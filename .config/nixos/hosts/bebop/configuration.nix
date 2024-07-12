@@ -44,6 +44,7 @@
     ];
 
     systemd.user.services.syncthing = {
+        enable = true;
         description = "Syncthing service";
         wants = [ "network-online.target" ];
         after = [ "network-online.target" ];
