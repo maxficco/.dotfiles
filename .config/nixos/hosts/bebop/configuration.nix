@@ -42,6 +42,7 @@
         mpv
         syncthing
     ];
+    services.syncthing.enable = true;
 
     systemd.user.services.syncthing = {
         description = "Syncthing service";
