@@ -43,7 +43,19 @@
         syncthing
     ];
 
-    systemd.user.services.syncthing.enable = true;
+    systemd.user.services.syncthing = {
+        description = "Syncthing service";
+        wants = [ "network-online.target" ];
+        after = [ "network-online.target" ];
+        serviceConfig = {
+            ExecStart = "${pkgs.syncthing}/bin/syncthing serve --no-browser --gui-address=127.0.0.1:8384";
+            Restart = "on-failure";
+        };
+        install = {
+            wantedBy = [ "default.target" ];
+        };
+    };
+
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
