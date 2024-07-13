@@ -44,7 +44,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }} 
 Plug 'psliwka/vim-smoothie'
 Plug 'tmsvg/pear-tree'
-Plug 'prashanthellina/follow-markdown-links'
 call plug#end()
 
 " NERDTree stuff
@@ -176,3 +175,85 @@ augroup AutoSaveGroup " https://vi.stackexchange.com/questions/13864/bufwinleave
   autocmd BufWinEnter ?* silent! loadview
 augroup end
 
+" https://claude.site/artifacts/2b4acb73-2bd9-4537-8ac3-40106ece1fba
+" following written by Claude 3.5 (with several prompts to debug and add features, but no direct intervention)
+function! s:OpenMarkdownLink()
+    let line = getline('.')
+    let cur_col = col('.')
+    let link_pattern = '\v\[([^\]]+)\]\(([^\)]+)\)'
+    let closest_link = {}
+    let min_distance = 999999  " A large number
+    let start = 0
+
+    while 1
+        let [match_str, match_start, match_end] = matchstrpos(line, link_pattern, start)
+        if match_start == -1
+            break
+        endif
+
+        let distance = min([abs(cur_col - match_start - 1), abs(cur_col - match_end - 1)])
+        if distance < min_distance
+            let min_distance = distance
+            let closest_link = {'start': match_start, 'end': match_end, 'full_match': match_str}
+        endif
+
+        let start = match_end
+    endwhile
+
+    if empty(closest_link)
+        echo "No link found"
+        return
+    endif
+
+    let link_parts = matchlist(closest_link.full_match, link_pattern)
+    if len(link_parts) < 3
+        echo "Invalid link format"
+        return
+    endif
+
+    let link_target = link_parts[2]
+
+    if link_target =~# '^https\?://'
+        let cmd = has('mac') ? 'open' : has('unix') ? 'xdg-open' : has('win32') || has('win64') ? 'start' : ''
+        if empty(cmd)
+            echo "Unsupported operating system for opening URLs"
+            return
+        endif
+        call job_start([cmd, link_target])
+    else
+        let file_path = substitute(link_target, '#.*', '', '')
+        let full_path = expand('%:p:h') . '/' . file_path
+        if !filereadable(full_path)
+            " File doesn't exist, create it
+            let create_file = input("File '" . full_path . "' doesn't exist. Create it? (y/n): ")
+            if create_file ==? 'y'
+                " Ensure the directory exists
+                let dir = fnamemodify(full_path, ':h')
+                if !isdirectory(dir)
+                    call mkdir(dir, 'p')
+                endif
+                " Create the file
+                call writefile([], full_path)
+                echo "Created new file: " . full_path
+            else
+                echo "File creation cancelled"
+                return
+            endif
+        endif
+        execute 'edit ' . fnameescape(full_path)
+    endif
+endfunction
+
+function! s:GoBackToPreviousFile()
+    if winnr('$') > 1
+        execute "normal! \<C-w>c"
+    else
+        execute "normal! \<C-o>"
+    endif
+endfunction
+
+augroup MarkdownLinks
+    autocmd!
+    autocmd FileType markdown nnoremap <buffer> <CR> :call <SID>OpenMarkdownLink()<CR>
+    autocmd FileType markdown nnoremap <buffer> <BS> :call <SID>GoBackToPreviousFile()<CR>
+augroup END
