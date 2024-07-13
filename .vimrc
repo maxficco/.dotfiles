@@ -225,7 +225,7 @@ function! s:OpenMarkdownLink()
         let full_path = expand('%:p:h') . '/' . file_path
         if !filereadable(full_path)
             " File doesn't exist, create it
-            let create_file = input("File '" . full_path . "' doesn't exist. Create it? (y/n): ")
+            let create_file = input("File '" . full_path . "' doesn't exist. Create it? (y/N): ")
             if create_file ==? 'y'
                 " Ensure the directory exists
                 let dir = fnamemodify(full_path, ':h')
