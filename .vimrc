@@ -44,7 +44,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }} 
 Plug 'psliwka/vim-smoothie'
 Plug 'tmsvg/pear-tree'
-Plug 'ayu-theme/ayu-vim'
 call plug#end()
 
 " NERDTree stuff
