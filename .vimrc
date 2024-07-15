@@ -44,6 +44,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }} 
 Plug 'psliwka/vim-smoothie'
 Plug 'tmsvg/pear-tree'
+Plug 'ayu-theme/ayu-vim'
 call plug#end()
 
 " NERDTree stuff
@@ -56,14 +57,11 @@ autocmd BufEnter * if tabpagenr('$') == 1 " Exit Vim if NERDTree is the only win
       \ && b:NERDTree.isTabTree()
       \ | quit | endif
 
-" custom window colors (and syntax highlighting with bat(install in term first)) for fzf
-let $FZF_DEFAULT_OPTS="--color=dark,fg:-1,bg:-1,hl:#5fff87,fg+:-1,bg+:-1,hl+:#ffaf5f,info:#af87ff,prompt:#5fff87,pointer:#ff87d7,marker:#ff87d7,spinner:#ff87d7 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+" fzf preview and syntax highlighting with bat
+let $FZF_DEFAULT_OPTS="--preview 'bat --color=always --theme=gruvbox-dark --style=header,grid --line-range :300 {}'"
 
-" colorsheme settings
-let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_contrast_light = 'soft'
-colorscheme gruvbox
 set background=dark
+colorscheme gruvbox
 
 " for lightline
 set laststatus=2
