@@ -42,6 +42,7 @@
         mpv
         syncthing
         openjdk
+        udev
     ];
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
