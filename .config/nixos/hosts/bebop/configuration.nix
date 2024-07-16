@@ -41,6 +41,7 @@
         yazi
         mpv
         syncthing
+        openjdk
     ];
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
