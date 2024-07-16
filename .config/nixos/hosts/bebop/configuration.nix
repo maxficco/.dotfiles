@@ -42,7 +42,6 @@
         mpv
         syncthing
         openjdk
-        minecraft-launcher
     ];
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
