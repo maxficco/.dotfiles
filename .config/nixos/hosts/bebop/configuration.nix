@@ -41,13 +41,7 @@
         yazi
         mpv
         syncthing
-        oraclejdk #unfree, but jfx bundled
     ];
-    nixpkgs.config.allowUnfree = true;
-    programs.java = {
-        enable = true;
-        package = (pkgs.jdk21.override { enableJavaFX = true; });
-    };
 
     networking.firewall.allowedTCPPorts = [ 25565 ];
 
