@@ -42,6 +42,7 @@
         mpv
         syncthing
         openjdk
+        openjfx # OSMC
     ];
     networking.firewall.allowedTCPPorts = [ 25565 ];
 
