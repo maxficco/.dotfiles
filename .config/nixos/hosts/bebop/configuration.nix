@@ -41,9 +41,7 @@
         yazi
         mpv
         syncthing
-        openjdk
-        javaPackages.openjfx21
-        libGL
+        oraclejdk #unfree, but jfx bundled
     ];
 
     programs.java = {
