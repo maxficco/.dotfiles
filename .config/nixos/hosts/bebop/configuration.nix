@@ -42,8 +42,15 @@
         mpv
         syncthing
         openjdk
-        openjfx # OSMC
+        javaPackages.openjfx21
+        libGL
     ];
+
+    programs.java = {
+        enable = true;
+        package = (pkgs.jdk21.override { enableJavaFX = true; });
+    };
+
     networking.firewall.allowedTCPPorts = [ 25565 ];
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
