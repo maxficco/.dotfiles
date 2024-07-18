@@ -41,6 +41,8 @@
         yazi
         mpv
         syncthing
+        openjdk
+        openjfx
     ];
 
     networking.firewall.allowedTCPPorts = [ 25565 ];
