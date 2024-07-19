@@ -43,7 +43,7 @@
         syncthing
         openjdk
     ];
-    nixpkgs.config.allowUnfree = true; 
+
     networking.firewall.allowedTCPPorts = [ 25565 ];
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
