@@ -21,9 +21,12 @@ augroup numbertoggle "relative line numbers only in normal/visual mode
   autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
   autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 augroup END
-"idk what this is but it fixes delay when escaping insert
-set timeoutlen=1000
-set ttimeoutlen=50
+"fix delay when escaping insert
+augroup FastEscape
+    autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+augroup END
 
 " Automatically install vim plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
