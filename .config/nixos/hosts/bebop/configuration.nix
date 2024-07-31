@@ -42,6 +42,7 @@
         mpv
         syncthing
         openjdk
+        qutebrowser
     ];
 
     networking.firewall.allowedTCPPorts = [ 25565 ];
