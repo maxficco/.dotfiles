@@ -1,12 +1,12 @@
 # Max Ficco's Dotfiles
 
-## Packages/Dependencies
+## Main Packages/Dependencies
 - git (version control)
 - stow (dotfiles symlinks)
 - zsh (shell)
 - vim (best text editor)
-- sourcecodepro (nerd font)
-- brave/firefox (browser)
+- sourcecodepro/hack (nerd font)
+- brave/qutebrowser (browser)
 - python (3)
 - openjdk (java)
 - gcc (c++)
@@ -24,12 +24,6 @@ linux specific:
 - brightnessctl (brightness control)
 - playerctl (media player control)
 - vlc (media player)
-
-for fun:
-- cbonsai (pretty trees in your terminal)
-- neofetch (i use arch btw)
-- cowsay (c)
-- ani-cli (anime)
 
 ## Installation
 - Install all dependencies and desired packages
