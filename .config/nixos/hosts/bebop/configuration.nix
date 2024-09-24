@@ -43,7 +43,14 @@
         syncthing
         openjdk
         qutebrowser
+        tlp
     ];
+
+    services.tlp.enable = true;
+    services.tlp.settings = {
+        START_CHARGE_THRESH_BAT0 = 30; # 30 and bellow it starts to charge
+        STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+    };
 
     networking.firewall.allowedTCPPorts = [ 25565 ];
 
