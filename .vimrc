@@ -100,7 +100,7 @@ autocmd filetype cpp noremap <leader>; :!g++ % -std=c++11 && ./a.out<cr>
 autocmd filetype rust noremap <leader>; :!rustc % && ./%:r<cr>
 autocmd filetype markdown noremap <expr> k (v:count == 0 ? 'gk' : 'k')
 autocmd filetype markdown noremap <expr> j (v:count == 0 ? 'gj' : 'j') 
-autocmd filetype pdf noremap <leader>; :!open %<cr>
+autocmd filetype pdf noremap <leader>; :!open %<cr><cr><C-o>
 
 for key in ['<Up>', '<Down>', '<Left>', '<Right>']
     exec 'noremap' key '<Nop>'
