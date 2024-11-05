@@ -44,6 +44,7 @@
         openjdk
         qutebrowser
         tlp
+        vlc
     ];
 
     services.tlp.enable = true;
