@@ -27,7 +27,6 @@
         foot # goated terminal emulator
         python3
         nodejs_22 # for coc.nvim
-        brave # browser
         pamixer
         brightnessctl
         playerctl
@@ -41,6 +40,7 @@
         yazi
         mpv
         syncthing
+        qutebrowser
     ];
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -48,9 +48,6 @@
     # load driver for Archer AC600 T2U Plus wifi usb antenna, disable native contoller
     boot.extraModulePackages = [ pkgs.linuxKernel.packages.linux_6_6.rtl88xxau-aircrack ];
     boot.blacklistedKernelModules = [ "iwl3945" ];
-
-    # prevent suspending when lid is closed if on AC
-    services.logind.lidSwitchExternalPower = "ignore";
 
     programs.zsh = {
         enable = true;
