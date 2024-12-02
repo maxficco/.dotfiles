@@ -155,15 +155,14 @@ autocmd filetype markdown noremap <Leader><space> :call ToggleCheckbox()<CR>
 autocmd FileType markdown setl comments=b:*,b:-,b:+,n:>
 autocmd FileType markdown setl formatoptions+=r
 
-" type :L to open a file at ~/notes/Stickies/<current date>
+" type :L to open a note for the current date
 fun! OpenLog()
     let fname = strftime("%Y-%m-%d") . ".md"
-    if !filereadable(expand("~/notes/Stickies/" . fname))
-        exe "!cp ~/notes/Templates/DailyNote.md ~/notes/Stickies/" . fname
-    endif
-    exe ":e ~/notes/Stickies/" . fname
+    call system('mkdir -p ~/notes')
+    call system('touch ~/notes/' . fname)
+    execute 'edit ~/notes/' . fname
 endfun
-command L call OpenLog()
+command! L call OpenLog()
 
 augroup AutoSaveGroup " https://vi.stackexchange.com/questions/13864/bufwinleave-mkview-with-unnamed-file-error-32
   autocmd!
