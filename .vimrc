@@ -102,6 +102,12 @@ autocmd filetype markdown noremap <leader>; :w !wc -w<cr>
 autocmd filetype markdown noremap <expr> k (v:count == 0 ? 'gk' : 'k')
 autocmd filetype markdown noremap <expr> j (v:count == 0 ? 'gj' : 'j') 
 autocmd filetype pdf noremap <leader>; :!open %<cr><cr><C-o>
+" Set filetype for all image files
+augroup FileTypeImages
+  autocmd!
+  autocmd BufRead,BufNewFile *.jpg,*.jpeg,*.png,*.gif,*.bmp set filetype=image
+augroup END
+autocmd filetype image noremap <leader>; :!open %<cr><cr><C-o>
 
 for key in ['<Up>', '<Down>', '<Left>', '<Right>']
     exec 'noremap' key '<Nop>'
