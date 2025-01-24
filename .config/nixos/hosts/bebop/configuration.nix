@@ -45,6 +45,7 @@
         qutebrowser
         tlp
         vlc
+        ngrok
     ];
 
     services.tlp.enable = true;
