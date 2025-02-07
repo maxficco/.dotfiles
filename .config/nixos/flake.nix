@@ -33,7 +33,14 @@
                           # ngrok will merge these, together with `extraConfig`
                         ];
                         tunnels = {
-                          # ...
+                            minecraft = {
+                                proto = "tcp";
+                                addr = 25565;
+                            };
+                            syncthing = {
+                                proto = "tcp";
+                                addr = 22000;
+                            };
                         };
                       };
                     })
