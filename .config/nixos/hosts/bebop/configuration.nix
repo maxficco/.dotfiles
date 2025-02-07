@@ -10,7 +10,7 @@
     networking.hostName = "bebop";
     networking.networkmanager.enable = true; 
 
-    time.timeZone = "America/Denver";
+    time.timeZone = "America/Detroit";
 
     nix.settings.experimental-features = ["nix-command" "flakes"]; # enable flakes
 
@@ -54,7 +54,7 @@
         STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
     };
 
-    networking.firewall.allowedTCPPorts = [ 25565 ];
+    networking.firewall.allowedTCPPorts = [ 25565, 22000 ];
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
