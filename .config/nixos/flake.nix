@@ -29,7 +29,6 @@
                         enable = true;
                         extraConfig = { };
                         extraConfigFiles = [
-                        "/home/maxficco/.config/ngrok/ngrok.yml"
                           # reference to files containing `authtoken` and `api_key` secrets
                           # ngrok will merge these, together with `extraConfig`
                         ];
