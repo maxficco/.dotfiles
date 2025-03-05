@@ -78,5 +78,5 @@
         pulse.enable = true;
     };
 
-    system.stateVersion = "24.05"; # DO NOT CHANGE THIS!
+    system.stateVersion = "24.11"; # DO NOT CHANGE THIS!
 }
