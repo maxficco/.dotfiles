@@ -21,7 +21,7 @@ after setting up a basic nixos install and cloning .dotfiles:
 ```
 $ cd ~/.dotfiles/.config/nixos
 $ mkdir hosts/new-host
-$ cp hosts/template/configuration.nix hosts/new-host # make sure boot options are correct!
+$ cp hosts/template/configuration.nix hosts/new-host # make sure boot options are correct, copy over system.stateVersion!
 $ cp /etc/nixos/hardware-configuration.nix hosts/new-host
 ```
 > don't forget to edit flake.nix, then:
