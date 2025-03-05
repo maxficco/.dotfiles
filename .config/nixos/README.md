@@ -25,6 +25,7 @@ $ cp hosts/template/configuration.nix hosts/new-host
 $ cp /etc/nixos/hardware-configuration.nix hosts/new-host
 ```
 > make sure boot options are correct and copy over system.stateVersion!
+> 
 > don't forget to edit flake.nix, then:
 ```
 $ sudo nixos-rebuild switch --flake .#new-host
