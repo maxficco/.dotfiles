@@ -47,6 +47,12 @@
                     })
                 ];
             };
+            deskomp = lib.nixosSystem {
+                system = "x86_64-linux";
+                modules = [ 
+                    ./hosts/deskomp/configuration.nix
+                ];
+            };
         };
     };
 

@@ -38,6 +38,7 @@ au BufLeave * silent! wall " autosave when switching buffers
 
 " Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'sts10/vim-pink-moon'
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'morhetz/gruvbox'
@@ -47,7 +48,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install() }} 
 Plug 'psliwka/vim-smoothie'
 Plug 'tmsvg/pear-tree'
-Plug 'rose-pine/vim'
 call plug#end()
 
 " NERDTree stuff
