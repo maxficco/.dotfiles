@@ -251,11 +251,7 @@ function! s:OpenMarkdownLink()
 endfunction
 
 function! s:GoBackToPreviousFile()
-    if winnr('$') > 1
-        execute "normal! \<C-w>c"
-    else
-        execute "normal! \<C-o>"
-    endif
+    execute "normal! \<C-o>"
 endfunction
 
 augroup MarkdownLinks
