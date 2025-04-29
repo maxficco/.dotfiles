@@ -103,6 +103,9 @@ autocmd filetype markdown noremap <leader>; :w !wc -w<cr>
 autocmd filetype markdown noremap <expr> k (v:count == 0 ? 'gk' : 'k')
 autocmd filetype markdown noremap <expr> j (v:count == 0 ? 'gj' : 'j') 
 autocmd filetype pdf noremap <leader>; :!open %<cr><cr><C-o>
+autocmd filetype c noremap <leader>; :!gcc % && ./a.out<cr>
+autocmd filetype c noremap m<leader>; :!gcc % -lm && ./a.out<cr>
+
 " Set filetype for all image files
 augroup FileTypeImages
   autocmd!
