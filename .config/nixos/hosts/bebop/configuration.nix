@@ -69,9 +69,6 @@
         wrapperFeatures.gtk = true; # so that gtk works properly
     };
 
-    fonts.packages = with pkgs; [
-        nerd-fonts.sauce-code-pro
-    ];
 
     services.pipewire = {
         enable = true;
