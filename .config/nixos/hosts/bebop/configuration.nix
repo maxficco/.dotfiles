@@ -70,7 +70,7 @@
     };
 
     fonts.packages = with pkgs; [
-        (nerdfonts.override { fonts = [ "SourceCodePro" ]; }) 
+        nerd-fonts.sauce-code-pro
     ];
 
     services.pipewire = {
