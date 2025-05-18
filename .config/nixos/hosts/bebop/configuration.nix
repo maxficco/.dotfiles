@@ -55,35 +55,34 @@
 
     networking.firewall.allowedTCPPorts = [ 25565 22000 ];
 
-    services.frp.client = {
-        enable = true;
-        settings = {
-            serverAddr = "170.9.241.10";
-            serverPort = 7000;
-            auth = {
-                method = "token";
-                token = "cowboy_bebop_719";
+    services.frp.enable = true;
+    services.frp.role = "client";
+    services.frp.settings = {
+        serverAddr = "170.9.241.10";
+        serverPort = 7000;
+        auth = {
+            method = "token";
+            token = "cowboy_bebop_719";
 
+        };
+        proxies = {
+            minecraft = {
+                type = "tcp";
+                localIP = "127.0.0.1";
+                localPort = 25565;
+                remotePort = 25565;
             };
-            proxies = {
-                minecraft = {
-                    type = "tcp";
-                    localIP = "127.0.0.1";
-                    localPort = 25565;
-                    remotePort = 25565;
-                };
-                syncthing-tcp = {
-                    type = "tcp";
-                    localIP = "127.0.0.1";
-                    localPort = 22000;
-                    remotePort = 22000;
-                };
-                syncthing-udp = {
-                    type = "udp";
-                    localIP = "127.0.0.1";
-                    localPort = 22000;
-                    remotePort = 22000;
-                };
+            syncthing-tcp = {
+                type = "tcp";
+                localIP = "127.0.0.1";
+                localPort = 22000;
+                remotePort = 22000;
+            };
+            syncthing-udp = {
+                type = "udp";
+                localIP = "127.0.0.1";
+                localPort = 22000;
+                remotePort = 22000;
             };
         };
     };
