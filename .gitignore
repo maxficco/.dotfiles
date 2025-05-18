@@ -1,1 +1,7 @@
+# ignore everything
 *
+# except ignore file itself
+!.gitignore
+# and except directories
+!*/
+
