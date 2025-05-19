@@ -80,7 +80,7 @@
                     localPort = 22000;
                     remotePort = 22000;
                 }
-                {   name = "syncthing_udp"
+                {   name = "syncthing_udp";
                     type = "udp";
                     localIP = "127.0.0.1";
                     localPort = 22000;
