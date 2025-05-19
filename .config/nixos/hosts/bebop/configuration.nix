@@ -73,13 +73,13 @@
                     localPort = 25565;
                     remotePort = 25565;
                 };
-                syncthing-tcp = {
+                syncthing_tcp = {
                     type = "tcp";
                     localIP = "127.0.0.1";
                     localPort = 22000;
                     remotePort = 22000;
                 };
-                syncthing-udp = {
+                syncthing_udp = {
                     type = "udp";
                     localIP = "127.0.0.1";
                     localPort = 22000;
