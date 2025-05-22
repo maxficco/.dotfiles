@@ -46,7 +46,7 @@
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
 
     # load driver for Archer AC600 T2U Plus wifi usb antenna, disable native contoller
-    boot.extraModulePackages = [ pkgs.linuxKernel.packages.linux_6_6.rtl88xxau-aircrack ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ rtl88xxau-aircrack ];
     boot.blacklistedKernelModules = [ "iwl3945" ];
 
     programs.zsh = {
