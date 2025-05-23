@@ -1,10 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-    secrets = import (builtins.path {
-        path = /home/maxficco/.dotfiles/.config/nixos/hosts/bebop/secrets.nix;
-        name = "frpToken";
-    });
+    secrets = import ./secrets.nix;
 in {
     imports = [ ./hardware-configuration.nix ];
 
