@@ -5,3 +5,5 @@
 # and except directories
 !*/
 
+# nixos tokens (for vps)
+**/secrets.nix
