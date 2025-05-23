@@ -63,7 +63,7 @@
             serverPort = 7000;
             auth = {
                 method = "token";
-                token = "cowboy_bebop_719";
+                token = "";
 
             };
             proxies = [
