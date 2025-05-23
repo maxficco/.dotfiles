@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
-{
+let
+    secrets = import ./secrets.nix;
+in {
     imports = [ ./hardware-configuration.nix ];
 
     # Use the systemd-boot EFI boot loader.
@@ -55,9 +57,6 @@
 
     networking.firewall.allowedTCPPorts = [ 25565 22000 ];
     boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr"; # faster!
-    let
-        secrets = import ./secrets.nix;
-    in {
         services.frp = {
             enable = true;
             role = "client";
@@ -70,29 +69,28 @@
 
                 };
                 proxies = [
-                    {
-                        name = "minecraft";
-                        type = "tcp";
-                        localIP = "127.0.0.1";
-                        localPort = 25565;
-                        remotePort = 25565;
-                    }
-                    {   name = "syncthing";
-                        type = "tcp";
-                        localIP = "127.0.0.1";
-                        localPort = 22000;
-                        remotePort = 22000;
-                    }
-                    {   name = "syncthing_udp";
-                        type = "udp";
-                        localIP = "127.0.0.1";
-                        localPort = 22000;
-                        remotePort = 22000;
-                    }
+                {
+                    name = "minecraft";
+                    type = "tcp";
+                    localIP = "127.0.0.1";
+                    localPort = 25565;
+                    remotePort = 25565;
+                }
+                {   name = "syncthing";
+                    type = "tcp";
+                    localIP = "127.0.0.1";
+                    localPort = 22000;
+                    remotePort = 22000;
+                }
+                {   name = "syncthing_udp";
+                    type = "udp";
+                    localIP = "127.0.0.1";
+                    localPort = 22000;
+                    remotePort = 22000;
+                }
                 ];
             };
         };
-    }
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
