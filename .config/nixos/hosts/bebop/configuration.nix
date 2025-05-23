@@ -2,7 +2,7 @@
 
 let
     secrets = import (builtins.path {
-        path = ./secrets.nix;
+        path = /home/maxficco/.dotfiles/.config/nixos/hosts/bebop/secrets.nix;
         name = "frpToken";
     });
 in {
