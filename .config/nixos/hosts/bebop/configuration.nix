@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 
 let
-    secrets = import ./secrets.nix;
+    secrets = import (builtins.path {
+        path = "/etc/nixos/secrets/secrets.nix";
+        name = "frpToken";
+    });
 in {
     imports = [ ./hardware-configuration.nix ];
 
