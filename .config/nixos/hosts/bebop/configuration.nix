@@ -71,6 +71,13 @@ in {
             };
             proxies = [
             {
+                name = "ssh";
+                type = "tcp";
+                localIP = "127.0.0.1";
+                localPort = 22;
+                remotePort = 60022;
+            }
+            {
                 name = "minecraft";
                 type = "tcp";
                 localIP = "127.0.0.1";
