@@ -63,7 +63,7 @@ in {
         openFirewall = true;
         settings = {
             PermitRootLogin = "no";
-            PasswordAuthention = false;
+            PasswordAuthentication = false;
             KbdInteractiveAuthentication = false;
             AllowUsers = [ "maxficco" ];
         };
