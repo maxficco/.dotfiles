@@ -66,8 +66,8 @@ in {
             PasswordAuthention = false;
             KbdInteractiveAuthentication = false;
             AllowUsers = [ "maxficco" ];
-        }
-    }
+        };
+    };
     services.fail2ban.enable = true;
 
     networking.firewall.allowedTCPPorts = [ 25565 22000 60022 ];
