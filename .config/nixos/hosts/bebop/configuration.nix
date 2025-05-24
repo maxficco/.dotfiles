@@ -20,6 +20,9 @@ in {
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
         shell = pkgs.zsh;
+        openssh.authorizedKeys.keys = [
+            ""
+        ];
     };
 
     environment.systemPackages = with pkgs; [
@@ -55,7 +58,19 @@ in {
         STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
     };
 
-    networking.firewall.allowedTCPPorts = [ 25565 22000 ];
+    services.openssh = {
+        enable = true;
+        openFirewall = true;
+        settings = {
+            PermitRootLogin = "no";
+            PasswordAuthention = false;
+            KbdInteractiveAuthentication = false;
+            AllowUsers = [ "maxficco" ];
+        }
+    }
+    services.fail2ban.enable = true;
+
+    networking.firewall.allowedTCPPorts = [ 25565 22000 60022 ];
     boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr"; # faster!
 
     services.frp = {
