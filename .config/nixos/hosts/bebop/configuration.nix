@@ -77,7 +77,7 @@ in {
         enable = true;
         role = "client";
         settings = {
-            serverAddr = "170.9.241.10";
+            serverAddr = "server.maxfic.co";
             serverPort = 7000;
             auth = {
                 method = "token";
