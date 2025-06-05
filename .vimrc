@@ -38,7 +38,6 @@ au BufLeave * silent! wall " autosave when switching buffers
 
 " Plugins
 call plug#begin('~/.vim/plugged')
-Plug 'sts10/vim-pink-moon'
 Plug 'scrooloose/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'morhetz/gruvbox'
