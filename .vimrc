@@ -17,31 +17,47 @@ augroup numbertoggle " relative line numbers only in normal/visual mode
     autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
     autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 augroup END
-set showcmd
 set splitright splitbelow
 set fillchars+=vert:│
 set scrolloff=5
 " save folds and cursor location
 autocmd BufLeave,BufWinLeave * silent! mkview
 autocmd BufReadPost * silent! loadview
+" bottom bar
+set showcmd
+set laststatus=2
+
+" Automatically install vim plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Plugins
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
 
 set termguicolors
 colorscheme koehler
 
 " key bindings
 let mapleader=","
-nnoremap <leader>m :Sex<CR>  " ;-)
-nnoremap <leader>n :Lex 30<CR>
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>/ :Lines<CR>
+nnoremap <leader>c :cd %:p:h<CR>:pwd<CR>
 nnoremap <silent> <C-e> 3<C-e>
 nnoremap <silent> <C-y> 3<C-y>
-nnoremap <CR> :noh<CR><CR>
 nnoremap <space> za
 autocmd filetype python noremap <leader>; :!python3 %<cr>
 autocmd filetype java noremap <leader>; :!javac % && java %<cr>
 autocmd filetype cpp noremap <leader>; :!g++ % -std=c++11 && ./a.out<cr>
 autocmd filetype c noremap <leader>; :!gcc % && ./a.out<cr>
-autocmd filetype c noremap m<leader>; :!gcc % -lm && ./a.out<cr>
-autocmd filetype rust noremap <leader>; :!rustc % && ./%:r<cr>
+autocmd filetype c noremap <leader>l; :!gcc % -lm && ./a.out<cr>
 autocmd filetype markdown noremap <leader>; :w !wc -w<cr>
 autocmd filetype markdown noremap <expr> k (v:count == 0 ? 'gk' : 'k')
 autocmd filetype markdown noremap <expr> j (v:count == 0 ? 'gj' : 'j') 
