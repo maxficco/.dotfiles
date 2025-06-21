@@ -4,7 +4,7 @@ On my main laptop I use [MacOS](https://www.youtube.com/watch?v=dQw4w9WgXcQ), [H
 
 On everything else I use [NixOS](https://nixos.org), [Sway](https://swaywm.org), and [foot](https://codeberg.org/dnkl/foot).
 
-On a mini server I also use [frp](https://github.com/fatedier/frp) w/ a cheap VPS from [OVHcloud](https://us.ovhcloud.com/).  It's like having a P.O. box!
+On a mini server I also use [frp](https://github.com/fatedier/frp) with a cheap VPS from [OVHcloud](https://us.ovhcloud.com/).  It's like having a P.O. box!
 
 ---
 I use [GNU Stow](https://www.gnu.org/software/stow/) to symlink my dotfiles:
