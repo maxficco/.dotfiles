@@ -51,7 +51,7 @@ nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>/ :Lines<CR>
 nnoremap <leader>c :cd %:p:h<CR>:pwd<CR>
-noremap <silent> <C-e> 3<C-e>
+nnoremap <silent> <C-e> 3<C-e>
 nnoremap <silent> <C-y> 3<C-y>
 nnoremap <space> za
 nnoremap <CR> :noh<CR><CR>
