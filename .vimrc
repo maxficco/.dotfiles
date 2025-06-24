@@ -46,13 +46,15 @@ colorscheme koehler
 
 " key bindings
 let mapleader=","
+nnoremap <silent> <leader>m :Lex 30<CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>/ :Lines<CR>
 nnoremap <leader>c :cd %:p:h<CR>:pwd<CR>
-nnoremap <silent> <C-e> 3<C-e>
+noremap <silent> <C-e> 3<C-e>
 nnoremap <silent> <C-y> 3<C-y>
 nnoremap <space> za
+nnoremap <CR> :noh<CR><CR>
 autocmd filetype python noremap <leader>; :!python3 %<cr>
 autocmd filetype java noremap <leader>; :!javac % && java %<cr>
 autocmd filetype cpp noremap <leader>; :!g++ % -std=c++11 && ./a.out<cr>
@@ -60,7 +62,7 @@ autocmd filetype c noremap <leader>; :!gcc % && ./a.out<cr>
 autocmd filetype c noremap <leader>l; :!gcc % -lm && ./a.out<cr>
 autocmd filetype markdown noremap <leader>; :w !wc -w<cr>
 autocmd filetype markdown noremap <expr> k (v:count == 0 ? 'gk' : 'k')
-autocmd filetype markdown noremap <expr> j (v:count == 0 ? 'gj' : 'j') 
+autocmd filetype markdown noremap <expr> j (v:count == 0 ? 'gj' : 'j')
 autocmd filetype pdf noremap <leader>; :!open %<cr><cr><C-o>
 augroup FileTypeImages
   autocmd!
@@ -100,7 +102,7 @@ autocmd FileType markdown setl formatoptions+=r
 function! s:OpenMarkdownLink()
     let line = getline('.')
     let col = col('.')
-    
+
     " Find all markdown links and pick the closest one
     let links = []
     let start = 0
@@ -111,11 +113,11 @@ function! s:OpenMarkdownLink()
         call add(links, {'dist': dist, 'url': matchstr(match[0], '\v\]\(\zs[^\)]+\ze\)')})
         let start = match[2]
     endwhile
-    
+
     if empty(links) | echo "No link found" | return | endif
-    
+
     let url = sort(links, {a, b -> a.dist - b.dist})[0].url
-    
+
     if url =~# '^https\?://'
         " Open URL
         if exists('*netrw#BrowseX')
@@ -141,3 +143,73 @@ augroup MarkdownLinks
     autocmd FileType markdown nnoremap <buffer> <CR> :call <SID>OpenMarkdownLink()<CR>
     autocmd FileType markdown nnoremap <buffer> <BS> :call <SID>GoBackToPreviousFile()<CR>
 augroup END
+
+function! ToggleMouse()
+    if &mouse == 'a'
+        set mouse=
+        echo "Mouse disabled"
+    else
+        set mouse=a
+        echo "Mouse enabled"
+    endif
+endfunction
+
+nnoremap <F2> :call ToggleMouse()<CR>
+
+" A much faster vimgrep using regular grep (Thanks again Claude)
+function! SearchWordUnderCursor()
+    let word = expand('<cword>')
+    if empty(word)
+        echo "No word under cursor to grep"
+        return
+    endif
+
+    echo "Searching for: " . word . "..."
+    " Sets the search register to the word and turn on highlights
+    let @/ = word
+    set hlsearch
+
+
+    let ext = expand('%:e')
+    let include_pattern = empty(ext) ? '' : '--include="*.' . ext . '"'
+    let grep_command = 'grep -rn ' . include_pattern . ' "' . escape(word, '"') . '" .'
+
+    " Execute grep and capture results
+    let results = system(grep_command)
+    let exit_code = v:shell_error
+
+    if exit_code != 0 || empty(trim(results))
+        redraw | echo "No matches found for: " . word
+        return
+    endif
+
+    " Parse results into quickfix format
+    let qf_list = []
+    for line in filter(split(results, "\n"), 'v:val !~ "^$"')
+        let match = matchlist(line, '\([^:]\+\):\(\d\+\):\(.*\)')
+        if !empty(match)
+            call add(qf_list, {
+                \ 'filename': match[1],
+                \ 'lnum': str2nr(match[2]),
+                \ 'text': trim(match[3])
+            \ })
+        endif
+    endfor
+
+    if empty(qf_list)
+        redraw | echo "No valid matches found for: " . word
+        return
+    endif
+
+    call setqflist(qf_list, 'r')
+    copen
+    redraw | echo "Found " . len(qf_list) . " matches for: " . word
+endfunction
+
+nnoremap <leader>s :call SearchWordUnderCursor()<CR>
+autocmd FileType qf nnoremap <buffer> o <CR><C-w>p
+autocmd FileType qf nnoremap <buffer> <C-n> :cnext<CR><C-w>p
+autocmd FileType qf nnoremap <buffer> <C-p> :cprev<CR><C-w>p
+nnoremap <C-n> :cnext<CR>
+nnoremap <C-p> :cprev<CR>
+
