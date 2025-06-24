@@ -172,7 +172,7 @@ function! SearchWordUnderCursor()
 
     let ext = expand('%:e')
     let include_pattern = empty(ext) ? '' : '--include="*.' . ext . '"'
-    let grep_command = 'grep -rn ' . include_pattern . ' "' . escape(word, '"') . '" .'
+    let grep_command = 'grep -irn ' . include_pattern . ' "' . escape(word, '"') . '" .'
 
     " Execute grep and capture results
     let results = system(grep_command)
