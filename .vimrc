@@ -208,6 +208,7 @@ endfunction
 
 nnoremap <leader>s :call SearchWordUnderCursor()<CR>
 autocmd FileType qf nnoremap <buffer> o <CR><C-w>p
+autocmd FileType qf nnoremap <buffer> q :q<CR>
 autocmd FileType qf nnoremap <buffer> <C-n> :cnext<CR><C-w>p
 autocmd FileType qf nnoremap <buffer> <C-p> :cprev<CR><C-w>p
 nnoremap <C-n> :cnext<CR>
