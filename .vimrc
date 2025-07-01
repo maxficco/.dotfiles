@@ -8,7 +8,7 @@ augroup WrapLinesInMarkdown
     autocmd FileType markdown setlocal wrap
 augroup END
 set noswapfile
-set incsearch
+set incsearch hlsearch
 set ignorecase smartcase
 set cursorline
 set number
