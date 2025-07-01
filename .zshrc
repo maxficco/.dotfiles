@@ -29,7 +29,7 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:git:*' formats ' %F{yellow}(%b)%f%c%u'
 zstyle ':vcs_info:git:*' actionformats ' %F{red}(%b|%a)%f%c%u'
-# Simple indicators: + for staged, ! for unstaged
+# Simple indicators: + for staged, !M for unstaged
 zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
 zstyle ':vcs_info:*' unstagedstr '%F{red}!M%f'
 
