@@ -31,7 +31,7 @@ zstyle ':vcs_info:git:*' formats ' %F{yellow}(%b)%f%c%u'
 zstyle ':vcs_info:git:*' actionformats ' %F{red}(%b|%a)%f%c%u'
 # Simple indicators: + for staged, ! for unstaged
 zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
-zstyle ':vcs_info:*' unstagedstr '%F{red}!%f'
+zstyle ':vcs_info:*' unstagedstr '%F{red}!M%f'
 
 # Hook to update vcs_info before each prompt
 precmd() {
