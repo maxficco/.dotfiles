@@ -218,4 +218,3 @@ autocmd FileType qf nnoremap <buffer> <C-p> :cprev<CR><C-w>p
 autocmd FileType qf nnoremap <buffer> q :q<CR>
 nnoremap <C-n> :cnext<CR>
 nnoremap <C-p> :cprev<CR>
-
