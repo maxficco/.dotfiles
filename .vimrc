@@ -26,6 +26,10 @@ autocmd BufReadPost * silent! loadview
 " bottom bar
 set showcmd
 set laststatus=2
+" folds
+set foldmethod=indent
+set foldlevelstart=99
+set foldnestmax=2
 
 " Automatically install vim plug
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
@@ -211,6 +215,7 @@ autocmd FileType qf nnoremap <buffer> o <CR><C-w>p
 autocmd FileType qf nnoremap <buffer> q :q<CR>
 autocmd FileType qf nnoremap <buffer> <C-n> :cnext<CR><C-w>p
 autocmd FileType qf nnoremap <buffer> <C-p> :cprev<CR><C-w>p
+autocmd FileType qf nnoremap <buffer> q :q<CR>
 nnoremap <C-n> :cnext<CR>
 nnoremap <C-p> :cprev<CR>
 
