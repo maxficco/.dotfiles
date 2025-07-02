@@ -27,10 +27,10 @@ git_push_status() {
 # Configure git info format with ahead/behind tracking
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:git:*' formats ' %F{yellow}(%b)%f%c%u'
+zstyle ':vcs_info:git:*' formats ' %F{orange}(%b)%f%c%u'
 zstyle ':vcs_info:git:*' actionformats ' %F{red}(%b|%a)%f%c%u'
 # Simple indicators: + for staged, !M for unstaged
-zstyle ':vcs_info:*' stagedstr '%F{green}++%f'
+zstyle ':vcs_info:*' stagedstr '%F{yellow}++%f'
 zstyle ':vcs_info:*' unstagedstr '%F{red}!!%f'
 
 # Hook to update vcs_info before each prompt
