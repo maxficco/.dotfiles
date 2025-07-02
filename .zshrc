@@ -39,7 +39,7 @@ precmd() {
 }
 
 # Format: [user@host] ~/current/path (git-branch)++!!↑ $
-PROMPT='%F{cyan}[%n@%m]%f %F{blue}%~%f${vcs_info_msg_0_}$(git_push_status) %F{blue}$%f '
+PROMPT='%F{cyan}[%n@%m]%f %F{blue}%~%f${vcs_info_msg_0_}$(git_push_status) %F{white}$%f '
 # Right prompt with time
 RPROMPT='%F{yellow}%D{%H:%M}%f'
 
