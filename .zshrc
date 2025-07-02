@@ -11,7 +11,7 @@ git_push_status() {
 
     # Get ahead/behind count (fast operation)
     local ahead_behind
-    ahead_behind=$(timeout 1s git rev-list --count --left-right @{upstream}...HEAD 2>/dev/null)
+    ahead_behind=$(git rev-list --count --left-right @{upstream}...HEAD 2>/dev/null)
 
     if [[ $? -eq 0 && -n "$ahead_behind" ]]; then
         local behind=$(echo $ahead_behind | cut -f1)
