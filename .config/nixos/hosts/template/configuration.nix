@@ -3,8 +3,12 @@
 {
     imports = [ ./hardware-configuration.nix ]; # make sure this file actually exists!
 
-    boot.loader.grub.enable = true;
-    boot.loader.grub.device = "/dev/sda";
+    # BOOT LOADER!
+    #boot.loader.grub.enable = true;
+    #boot.loader.grub.device = "/dev/sda";
+    # or...
+    #boot.loader.systemd-boot.enable = true;
+    #boot.loader.efi.canTouchEfiVariables = true;
 
     networking.hostName = "template";
     networking.networkmanager.enable = true; 
@@ -20,23 +24,20 @@
     };
 
     environment.systemPackages = with pkgs; [
-        vim # Nano editor is installed by default
+        vim
         stow
         git
-        bemenu # minimal, like dmenu but for wayland
-        cbonsai # pretty trees in your terminal
-        foot # goated terminal emulator
-        nodejs_22 # for coc.nvim
-        brave # browser
+        bemenu
+        foot
         pamixer
         brightnessctl
         playerctl
+        vlc
         python3
-        bat # for fzf in vim
+        gcc
         neofetch
         cowsay
-        gcc
-        vlc
+        cbonsai
     ];
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -61,5 +62,5 @@
         pulse.enable = true;
     };
 
-    system.stateVersion = "24.05"; # DO NOT CHANGE THIS!
+    # system.stateVersion = "24.05"; # COPY OVER FROM ORIGINAL!
 }
