@@ -6,7 +6,7 @@
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi.canTouchEfiVariables = true;
 
-    networking.hostName = "template";
+    networking.hostName = "microbox";
     networking.networkmanager.enable = true; 
 
     time.timeZone = "America/Detroit";
