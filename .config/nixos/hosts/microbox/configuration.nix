@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
-{
+let
+    secrets = import ./secrets.nix;
+in {
     imports = [ ./hardware-configuration.nix ]; # make sure this file actually exists!
 
     boot.loader.systemd-boot.enable = true;
@@ -37,6 +39,44 @@
     ];
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
+    # server stuff
+    services.openssh = {
+        enable = true;
+        openFirewall = true;
+        settings = {
+            PermitRootLogin = "no";
+            PasswordAuthentication = false;
+            KbdInteractiveAuthentication = false;
+            AllowUsers = [ "maxficco" ];
+        };
+    };
+    services.fail2ban.enable = true;
+
+    networking.firewall.allowedTCPPorts = [ 4910 ];
+    boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr"; # faster!
+
+    services.frp = {
+        enable = true;
+        role = "client";
+        settings = {
+            serverAddr = "server.maxfic.co";
+            serverPort = 7000;
+            auth = {
+                method = "token";
+                token = secrets.frpToken;
+            };
+            proxies = [
+            {
+                name = "ssh";
+                type = "tcp";
+                localIP = "127.0.0.1";
+                localPort = 22;
+                remotePort = 4910;
+            }
+            ];
+        };
+    };
 
     programs.zsh = {
         enable = true;
