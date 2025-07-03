@@ -29,6 +29,12 @@
                     ./hosts/deskomp/configuration.nix
                 ];
             };
+            microbox = lib.nixosSystem {
+                system = "x86_64-linux";
+                modules = [ 
+                    ./hosts/microbox/configuration.nix
+                ];
+            };
         };
     };
 
