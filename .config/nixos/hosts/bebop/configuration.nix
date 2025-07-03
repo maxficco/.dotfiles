@@ -70,7 +70,7 @@ in {
     };
     services.fail2ban.enable = true;
 
-    networking.firewall.allowedTCPPorts = [ 25565 22000 60022 ];
+    networking.firewall.allowedTCPPorts = [ 25565 22000 4220 ];
     boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr"; # faster!
 
     services.frp = {
@@ -90,7 +90,7 @@ in {
                 type = "tcp";
                 localIP = "127.0.0.1";
                 localPort = 22;
-                remotePort = 60022;
+                remotePort = 4220;
             }
             {
                 name = "minecraft";
