@@ -71,7 +71,7 @@ in {
             };
             proxies = [
             {
-                name = "ssh";
+                name = "microbox-ssh";
                 type = "tcp";
                 localIP = "127.0.0.1";
                 localPort = 22;

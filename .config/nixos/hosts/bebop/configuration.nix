@@ -86,26 +86,26 @@ in {
             };
             proxies = [
             {
-                name = "ssh";
+                name = "bebop-ssh";
                 type = "tcp";
                 localIP = "127.0.0.1";
                 localPort = 22;
                 remotePort = 4220;
             }
             {
-                name = "minecraft";
+                name = "bebop-minecraft";
                 type = "tcp";
                 localIP = "127.0.0.1";
                 localPort = 25565;
                 remotePort = 25565;
             }
-            {   name = "syncthing";
+            {   name = "bebop-syncthing";
                 type = "tcp";
                 localIP = "127.0.0.1";
                 localPort = 22000;
                 remotePort = 22000;
             }
-            {   name = "syncthing_udp";
+            {   name = "bebop-syncthing_udp";
                 type = "udp";
                 localIP = "127.0.0.1";
                 localPort = 22000;
