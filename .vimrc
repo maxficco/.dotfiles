@@ -55,6 +55,8 @@ nnoremap <silent> <leader>l :Lex 30<CR>
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <leader>f :Files<CR>
 nnoremap <silent> <leader>/ :Lines<CR>
+nnoremap <backspace> <C-o>
+nnoremap <S-backspace> <C-i>
 
 " line numbers
 set cursorline
