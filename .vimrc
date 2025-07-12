@@ -1,15 +1,62 @@
-" basic settings
+" automatically install vim plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" load plugins
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdtree'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
+" general configs
+let mapleader=","
 syntax on
 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 filetype plugin indent on
+set noswapfile
+set splitright splitbelow
+
+" cd into directory of current file
+nnoremap <leader>c :cd %:p:h<CR>:pwd<CR>
+
+" searching
+set incsearch hlsearch
+set ignorecase smartcase
+nnoremap <CR> :noh<CR><CR>
+
+" faster scrolling (with 5 lines of padding)
+nnoremap <silent> <C-e> 3<C-e>
+nnoremap <silent> <C-y> 3<C-y>
+set scrolloff=5 
+
+" text wrapping
 set nowrap
 augroup WrapLinesInMarkdown
     autocmd!
     autocmd FileType markdown setlocal wrap
 augroup END
-set noswapfile
-set incsearch hlsearch
-set ignorecase smartcase
+function ToggleWrap()
+    if (&wrap == 1)
+        set nowrap
+        echo "wrap off"
+    else
+        set wrap
+        echo "wrap on"
+    endif
+endf
+nnoremap <leader>w :call ToggleWrap()<CR>
+
+" file navigation keybinds
+nnoremap <silent> <leader>l :Lex 30<CR>
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>
+nnoremap <silent> <leader>f :Files<CR>
+nnoremap <silent> <leader>/ :Lines<CR>
+
+" line numbers
 set cursorline
 set number
 augroup numbertoggle " relative line numbers only in normal/visual mode
@@ -17,48 +64,46 @@ augroup numbertoggle " relative line numbers only in normal/visual mode
     autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
     autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 augroup END
-set splitright splitbelow
-set fillchars+=vert:│
-set scrolloff=5
-" save folds and cursor location
-autocmd BufLeave,BufWinLeave * silent! mkview
-autocmd BufReadPost * silent! loadview
+
 " bottom bar
+set statusline=%f\ %m%r%h%w%=%y\ %4l,%-3v\ %P\ 
 set showcmd
 set laststatus=2
+
 " folds
+autocmd BufLeave,BufWinLeave * silent! mkview
+autocmd BufReadPost * silent! loadview
 set foldmethod=indent
 set foldlevelstart=99
 set foldnestmax=2
+nnoremap <space> za
 
-" Automatically install vim plug
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-    silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+" mouse
+set mouse=
+function! ToggleMouse()
+    if &mouse == 'a'
+        set mouse=
+        echo "Mouse disabled"
+    else
+        set mouse=a
+        echo "Mouse enabled"
+    endif
+endfunction
+nnoremap <leader>m :call ToggleMouse()<CR>
 
-" Plugins
-call plug#begin('~/.vim/plugged')
-Plug 'scrooloose/nerdtree'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-call plug#end()
+" look ma, no training wheels!
+for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+    exec 'noremap' key '<Nop>'
+    exec 'inoremap' key '<Nop>'
+    exec 'cnoremap' key '<Nop>'
+endfor
 
+" colorscheme
 set termguicolors
 colorscheme koehler
+set background=dark
 
-" key bindings
-let mapleader=","
-nnoremap <silent> <leader>m :Lex 30<CR>
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>
-nnoremap <silent> <leader>f :Files<CR>
-nnoremap <silent> <leader>/ :Lines<CR>
-nnoremap <leader>c :cd %:p:h<CR>:pwd<CR>
-nnoremap <silent> <C-e> 3<C-e>
-nnoremap <silent> <C-y> 3<C-y>
-nnoremap <space> za
-nnoremap <CR> :noh<CR><CR>
+" file running/opening
 autocmd filetype python noremap <leader>; :!python3 %<cr>
 autocmd filetype java noremap <leader>; :!javac % && java %<cr>
 autocmd filetype cpp noremap <leader>; :!g++ % -std=c++11 && ./a.out<cr>
@@ -74,19 +119,13 @@ augroup FileTypeImages
 augroup END
 autocmd filetype image noremap <leader>; :!open %<cr><cr><C-o>
 
-" look ma, no training wheels!
-for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-    exec 'noremap' key '<Nop>'
-    exec 'inoremap' key '<Nop>'
-    exec 'cnoremap' key '<Nop>'
-endfor
-
-" custom functions
-function Gitacp() " git add, commit, and push
+" auto git add, commit, and push
+function Gitacp()
     execute "!git add . && git commit -m 'vim' && git push"
 endfunction
 command! ACP call Gitacp()
 
+" markdown checkboxes
 function! ToggleCheckbox()
   let line = getline('.')
   if line =~ '- \[ \]'
@@ -97,8 +136,9 @@ function! ToggleCheckbox()
     call setline('.', substitute(line, '- ', '- \[ \] ', ''))
   endif
 endf
-
 autocmd filetype markdown noremap <Leader><space> :call ToggleCheckbox()<CR>
+
+" continue lists/bullet points in vim (makes them behave like comment characters would)
 autocmd FileType markdown setl comments=b:*,b:-,b:+,n:>
 autocmd FileType markdown setl formatoptions+=r
 
@@ -137,30 +177,9 @@ function! s:OpenMarkdownLink()
         execute 'edit ' . fnameescape(filepath)
     endif
 endfunction
+autocmd FileType markdown nnoremap <buffer> <CR> :call <SID>OpenMarkdownLink()<CR>
 
-function! s:GoBackToPreviousFile()
-    execute "normal! \<C-o>"
-endfunction
-
-augroup MarkdownLinks
-    autocmd!
-    autocmd FileType markdown nnoremap <buffer> <CR> :call <SID>OpenMarkdownLink()<CR>
-    autocmd FileType markdown nnoremap <buffer> <BS> :call <SID>GoBackToPreviousFile()<CR>
-augroup END
-
-function! ToggleMouse()
-    if &mouse == 'a'
-        set mouse=
-        echo "Mouse disabled"
-    else
-        set mouse=a
-        echo "Mouse enabled"
-    endif
-endfunction
-
-nnoremap <F2> :call ToggleMouse()<CR>
-
-" A much faster vimgrep using regular grep (Thanks again Claude)
+" A much faster vimgrep using regular grep + Quickfix List (Thanks again Claude)
 function! SearchWordUnderCursor()
     let word = expand('<cword>')
     if empty(word)
@@ -209,8 +228,9 @@ function! SearchWordUnderCursor()
     copen
     redraw | echo "Found " . len(qf_list) . " matches for: " . word
 endfunction
-
 nnoremap <leader>s :call SearchWordUnderCursor()<CR>
+
+" Quickfix List keybinds
 autocmd FileType qf nnoremap <buffer> o <CR><C-w>p
 autocmd FileType qf nnoremap <buffer> q :q<CR>
 autocmd FileType qf nnoremap <buffer> <C-n> :cnext<CR><C-w>p
