@@ -19,6 +19,8 @@ set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 filetype plugin indent on
 set noswapfile
 set splitright splitbelow
+nnoremap L $
+nnoremap H ^
 
 " cd into directory of current file
 nnoremap <leader>c :cd %:p:h<CR>:pwd<CR>
