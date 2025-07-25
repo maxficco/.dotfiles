@@ -20,9 +20,6 @@ in {
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
         shell = pkgs.zsh;
-        openssh.authorizedKeys.keys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMVEkPUqLxIjBHOSt6hlECiE7IXFW1zbnord+nAXnuts maxficco@ssh.maxfic.co"
-        ];
     };
 
     environment.systemPackages = with pkgs; [
@@ -51,69 +48,6 @@ in {
         tlp
         vlc
     ];
-
-    services.tlp.enable = true;
-    services.tlp.settings = {
-        START_CHARGE_THRESH_BAT0 = 30; # 30 and bellow it starts to charge
-        STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
-    };
-
-    services.openssh = {
-        enable = true;
-        openFirewall = true;
-        settings = {
-            PermitRootLogin = "no";
-            PasswordAuthentication = false;
-            KbdInteractiveAuthentication = false;
-            AllowUsers = [ "maxficco" ];
-        };
-    };
-    services.fail2ban.enable = true;
-
-    networking.firewall.allowedTCPPorts = [ 25565 22000 4220 ];
-    boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr"; # faster!
-
-    services.frp = {
-        enable = true;
-        role = "client";
-        settings = {
-            serverAddr = "server.maxfic.co";
-            serverPort = 7000;
-            auth = {
-                method = "token";
-                token = secrets.frpToken;
-
-            };
-            proxies = [
-            {
-                name = "bebop-ssh";
-                type = "tcp";
-                localIP = "127.0.0.1";
-                localPort = 22;
-                remotePort = 4220;
-            }
-            {
-                name = "bebop-minecraft";
-                type = "tcp";
-                localIP = "127.0.0.1";
-                localPort = 25565;
-                remotePort = 25565;
-            }
-            {   name = "bebop-syncthing";
-                type = "tcp";
-                localIP = "127.0.0.1";
-                localPort = 22000;
-                remotePort = 22000;
-            }
-            {   name = "bebop-syncthing_udp";
-                type = "udp";
-                localIP = "127.0.0.1";
-                localPort = 22000;
-                remotePort = 22000;
-            }
-            ];
-        };
-    };
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
