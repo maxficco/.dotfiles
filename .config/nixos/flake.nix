@@ -23,6 +23,12 @@
                     ./hosts/bebop/configuration.nix
                 ];
             };
+            bebop-server = lib.nixosSystem {
+                system = "x86_64-linux";
+                modules = [ 
+                    ./hosts/bebop-server/configuration.nix
+                ];
+            };
             wahoo = lib.nixosSystem {
                 system = "x86_64-linux";
                 modules = [ 
