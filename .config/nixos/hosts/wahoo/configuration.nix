@@ -39,6 +39,7 @@ in {
         neofetch
         cowsay
         cbonsai
+        syncthing
     ];
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -56,7 +57,7 @@ in {
     };
     services.fail2ban.enable = true;
 
-    networking.firewall.allowedTCPPorts = [ 4910 ];
+    networking.firewall.allowedTCPPorts = [ 25565 22000 4910 ];
     boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr"; # faster!
 
     services.frp = {
@@ -76,6 +77,25 @@ in {
                 localIP = "127.0.0.1";
                 localPort = 22;
                 remotePort = 4910;
+            }
+            {
+                name = "wahoo-minecraft";
+                type = "tcp";
+                localIP = "127.0.0.1";
+                localPort = 25565;
+                remotePort = 25565;
+            }
+            {   name = "wahoo-syncthing";
+                type = "tcp";
+                localIP = "127.0.0.1";
+                localPort = 22000;
+                remotePort = 22000;
+            }
+            {   name = "wahoo-syncthing_udp";
+                type = "udp";
+                localIP = "127.0.0.1";
+                localPort = 22000;
+                remotePort = 22000;
             }
             ];
         };
