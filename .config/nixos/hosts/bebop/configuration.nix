@@ -30,7 +30,6 @@ in {
         cbonsai # pretty trees in your terminal
         foot # goated terminal emulator
         python3
-        nodejs_22 # for coc.nvim
         brave # browser
         pamixer
         brightnessctl
