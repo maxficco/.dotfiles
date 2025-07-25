@@ -57,7 +57,7 @@ in {
     };
     services.fail2ban.enable = true;
 
-    networking.firewall.allowedTCPPorts = [ 25565 22000 4910 8384 ];
+    networking.firewall.allowedTCPPorts = [ 25565 22000 4910 ];
     boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr"; # faster!
 
     services.frp = {
@@ -96,12 +96,6 @@ in {
                 localIP = "127.0.0.1";
                 localPort = 22000;
                 remotePort = 22000;
-            }
-            {   name = "wahoo-syncthing_gui";
-                type = "udp";
-                localIP = "127.0.0.1";
-                localPort = 8384;
-                remotePort = 8384;
             }
             ];
         };
