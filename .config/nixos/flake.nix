@@ -23,16 +23,10 @@
                     ./hosts/bebop/configuration.nix
                 ];
             };
-            deskomp = lib.nixosSystem {
+            wahoo = lib.nixosSystem {
                 system = "x86_64-linux";
                 modules = [ 
-                    ./hosts/deskomp/configuration.nix
-                ];
-            };
-            microbox = lib.nixosSystem {
-                system = "x86_64-linux";
-                modules = [ 
-                    ./hosts/microbox/configuration.nix
+                    ./hosts/wahoo/configuration.nix
                 ];
             };
         };
