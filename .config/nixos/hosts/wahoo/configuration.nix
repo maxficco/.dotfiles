@@ -120,7 +120,7 @@ in {
             export WLR_LIBINPUT_NO_DEVICES=1
             export WLR_HEADLESS_OUTPUT=1920x1080
 
-            wayvnc --address 0.0.0.0 --port 5900 &
+            wayvnc 0.0.0.0 5900 &
             '';
     };
 
