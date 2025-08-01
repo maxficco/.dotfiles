@@ -15,9 +15,11 @@ in {
 
     nix.settings.experimental-features = ["nix-command" "flakes"]; # enable flakes
 
+    services.seatd.enable = true;
+
     users.users.maxficco = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" ];
+        extraGroups = [ "wheel" "networkmanager" "seat" "video" ];
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMVEkPUqLxIjBHOSt6hlECiE7IXFW1zbnord+nAXnuts maxficco@ssh.maxfic.co"
