@@ -113,15 +113,6 @@ in {
     programs.sway = {
         enable=true;
         wrapperFeatures.gtk = true; # so that gtk works properly
-
-        # for VNC
-        extraSessionCommands = ''
-            export WLR_BACKENDS=headless
-            export WLR_LIBINPUT_NO_DEVICES=1
-            export WLR_HEADLESS_OUTPUT=1920x1080
-
-            wayvnc 0.0.0.0 5900 &
-            '';
     };
 
     fonts.packages = with pkgs; [
