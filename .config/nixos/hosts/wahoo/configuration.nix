@@ -19,7 +19,7 @@ in {
 
     users.users.maxficco = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" "seat" "video" ];
+        extraGroups = [ "wheel" "networkmanager" "seat" "render" "video" ];
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMVEkPUqLxIjBHOSt6hlECiE7IXFW1zbnord+nAXnuts maxficco@ssh.maxfic.co"
