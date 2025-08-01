@@ -41,6 +41,7 @@ in {
         cbonsai
         syncthing
         openjdk
+        wayvnc
     ];
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -58,7 +59,8 @@ in {
     };
     services.fail2ban.enable = true;
 
-    networking.firewall.allowedTCPPorts = [ 25565 22000 4910 ];
+    networking.firewall.allowedTCPPorts = [ 25565 22000 4910 5900 ]; # 5900 is for vnc, but only set up for local (blocked by ovh server anyways)
+                                                                    # Will need to consider privacy and security if I want to connect over distance
     boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr"; # faster!
 
     services.frp = {
@@ -111,6 +113,15 @@ in {
     programs.sway = {
         enable=true;
         wrapperFeatures.gtk = true; # so that gtk works properly
+
+        # for VNC
+        extraSessionCommands = ''
+            export WLR_BACKENDS=headless
+            export WLR_LIBINPUT_NO_DEVICES=1
+            export WLR_HEADLESS_OUTPUT=1920x1080
+
+            wayvnc --address 0.0.0.0 --port 5900 &
+            '';
     };
 
     fonts.packages = with pkgs; [
