@@ -43,7 +43,7 @@ in {
         cbonsai
         syncthing
         openjdk
-        wayvnc
+        tigervnc 
     ];
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -112,19 +112,8 @@ in {
         syntaxHighlighting.enable = true;
     };
 
-    programs.sway = {
-        enable=true;
-        wrapperFeatures.gtk = true; # so that gtk works properly
-#        extraSessionCommands = ''        
-#            export XDG_RUNTIME_DIR=/run/user/$(id -u)
-#            export WLR_BACKENDS=headless
-#            export WLR_LIBINPUT_NO_DEVICES=1
-#            export WLR_HEADLESS_OUTPUT=1920x1080
-#            export WAYLAND_DISPLAY=wayland-0
-#
-#            wayvnc 0.0.0.0 5900 &
-#        '';
-    };
+    services.xserver.enable = true;
+    services.xserver.desktopManager.xfce.enable = true;
 
     fonts.packages = with pkgs; [
         nerd-fonts.sauce-code-pro
