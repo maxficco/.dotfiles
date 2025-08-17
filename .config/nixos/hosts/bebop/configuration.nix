@@ -41,12 +41,16 @@ in {
         gcc
         yazi
         mpv
-        syncthing
         openjdk
         qutebrowser
         tlp
         vlc
     ];
+    
+    services.syncthing = {
+        enable = true;
+        openDefaultPorts = true; # Open ports in the firewall for Syncthing
+    }; 
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot

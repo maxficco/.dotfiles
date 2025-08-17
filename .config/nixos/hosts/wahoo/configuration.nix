@@ -41,12 +41,16 @@ in {
         neofetch
         cowsay
         cbonsai
-        syncthing
         openjdk
         qutebrowser
     ];
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+
+    services.syncthing = {
+        enable = true;
+        openDefaultPorts = true; # Open ports in the firewall for Syncthing
+    }; 
 
     # server stuff
     services.openssh = {

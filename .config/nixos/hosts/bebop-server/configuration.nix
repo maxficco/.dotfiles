@@ -45,12 +45,16 @@ in {
         gcc
         yazi
         mpv
-        syncthing
         openjdk
         qutebrowser
         tlp
         vlc
     ];
+
+    services.syncthing = {
+        enable = true;
+        openDefaultPorts = true; # Open ports in the firewall for Syncthing
+    }; 
 
     services.tlp.enable = true;
     services.tlp.settings = {
