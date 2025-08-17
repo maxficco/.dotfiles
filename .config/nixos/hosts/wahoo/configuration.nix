@@ -43,7 +43,7 @@ in {
         cbonsai
         syncthing
         openjdk
-        tigervnc 
+        qutebrowser
     ];
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
@@ -61,8 +61,7 @@ in {
     };
     services.fail2ban.enable = true;
 
-    networking.firewall.allowedTCPPorts = [ 25565 22000 4910 5900 ]; # 5900 is for vnc, but only set up for local (blocked by ovh server anyways)
-                                                                    # Will need to consider privacy and security if I want to connect over distance
+    networking.firewall.allowedTCPPorts = [ 25565 22000 4910 ];
     boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr"; # faster!
 
     services.frp = {
@@ -96,7 +95,7 @@ in {
                 localPort = 22000;
                 remotePort = 22000;
             }
-            {   name = "wahoo-syncthing_udp";
+            {   name = "wahoo-syncthing-udp";
                 type = "udp";
                 localIP = "127.0.0.1";
                 localPort = 22000;
@@ -112,8 +111,10 @@ in {
         syntaxHighlighting.enable = true;
     };
 
-    services.xserver.enable = true;
-    services.xserver.desktopManager.xfce.enable = true;
+    programs.sway = {
+        enable=true;
+        wrapperFeatures.gtk = true; # so that gtk works properly
+    };
 
     fonts.packages = with pkgs; [
         nerd-fonts.sauce-code-pro
