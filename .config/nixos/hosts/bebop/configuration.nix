@@ -49,8 +49,10 @@ in {
     
     services.syncthing = {
         enable = true;
-        openDefaultPorts = true; # Open ports in the firewall for Syncthing
-    }; 
+        user = "maxficco";
+        dataDir = "/home/maxficco";  # default location for new folders
+        configDir = "/home/maxficco/.config/syncthing";
+    };
 
     hardware.bluetooth.enable = true; # enables support for Bluetooth
     hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
