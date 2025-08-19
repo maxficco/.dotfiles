@@ -49,6 +49,7 @@ in {
         qutebrowser
         tlp
         vlc
+        tmux
     ];
 
     services.syncthing = {

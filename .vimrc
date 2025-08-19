@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 " general configs
@@ -104,8 +105,17 @@ endfor
 
 " colorscheme
 set termguicolors
-colorscheme koehler
 set background=dark
+augroup GruvboxBlack
+  autocmd!
+  autocmd ColorScheme gruvbox hi Normal       guibg=#000000 ctermbg=0
+  autocmd ColorScheme gruvbox hi NormalNC     guibg=#000000 ctermbg=0
+  autocmd ColorScheme gruvbox hi SignColumn   guibg=#000000 ctermbg=0
+  autocmd ColorScheme gruvbox hi LineNr       guibg=#000000 ctermbg=0
+  autocmd ColorScheme gruvbox hi NormalFloat  guibg=#000000 ctermbg=0
+augroup END
+colorscheme gruvbox
+
 
 " file running/opening
 autocmd filetype python noremap <leader>; :!python3 %<cr>
