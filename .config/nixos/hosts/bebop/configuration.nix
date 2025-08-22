@@ -46,7 +46,7 @@ in {
         tlp
         vlc
         tmux
-        minecraft
+        prismlauncher
     ];
     
     services.syncthing = {
