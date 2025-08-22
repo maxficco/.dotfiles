@@ -46,6 +46,7 @@ in {
         tlp
         vlc
         tmux
+        minecraft
     ];
     
     services.syncthing = {
