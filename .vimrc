@@ -15,13 +15,14 @@ call plug#end()
 
 " general configs
 let mapleader=","
-syntax on
 set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
-filetype plugin indent on
 set noswapfile
 set splitright splitbelow
 nnoremap L $
 nnoremap H ^
+syntax enable 
+filetype plugin indent on
+let g:markdown_fenced_languages = ['python', 'c', 'cpp', 'sh', 'bash=sh']
 
 " cd into directory of current file
 nnoremap <leader>c :cd %:p:h<CR>:pwd<CR>
