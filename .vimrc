@@ -26,7 +26,6 @@ if has('nvim')
     let g:vimtex_view_method='sioyek'
     let g:vimtex_quickfix_mode=0
     set conceallevel=1
-    let g:tex_conceal='abdmg'
 endif
 
 " general configs
@@ -139,7 +138,7 @@ autocmd filetype python noremap <leader>; :!python3 %<cr>
 autocmd filetype java noremap <leader>; :!javac % && java %<cr>
 autocmd filetype cpp noremap <leader>; :!g++ % -std=c++11 && ./a.out<cr>
 autocmd filetype c noremap <leader>; :!gcc % && ./a.out<cr>
-autocmd filetype c noremap <leader>l; :!gcc % -lm && ./a.out<cr>
+autocmd filetype c noremap <leader>: :!gcc % -lm && ./a.out<cr>
 autocmd filetype markdown noremap <leader>; :w !wc -w<cr>
 autocmd filetype markdown noremap <expr> k (v:count == 0 ? 'gk' : 'k')
 autocmd filetype markdown noremap <expr> j (v:count == 0 ? 'gj' : 'j')
