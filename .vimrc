@@ -26,6 +26,7 @@ if has('nvim')
     let g:vimtex_view_method='sioyek'
     let g:vimtex_quickfix_mode=0
     set conceallevel=1
+    let g:vimtex_compiler_latexmk = {'aux_dir':'build/aux', 'out_dir':'build'}
 endif
 
 " general configs
