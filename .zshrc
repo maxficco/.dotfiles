@@ -1,5 +1,8 @@
 ~/.local/bin/startup.sh
 
+alias vim="nvim"
+alias vi="nvim"
+
 # Enable colors and git info
 autoload -Uz vcs_info
 setopt prompt_subst
