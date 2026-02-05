@@ -20,12 +20,28 @@ endif
 
 call plug#end()
 
+" general configs
+let mapleader=","
+set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
+set noswapfile
+set splitright splitbelow
+nnoremap L $
+nnoremap H ^
+syntax enable 
+filetype plugin indent on
+let g:markdown_fenced_languages = ['python', 'c', 'cpp', 'sh', 'bash=sh']
+
 " Neovim + VimTeX + Sioyek specific config
 if has('nvim')
     let g:tex_flavor='latex'
     let g:vimtex_view_method='sioyek'
     let g:vimtex_quickfix_mode = 2
-    set conceallevel=2
+    augroup LatexConceal
+        autocmd!
+        autocmd FileType tex setlocal conceallevel=2
+    augroup END
+    " Toggle between conceallevel 2 (formatted) and 0 (raw)
+    nnoremap <silent> <leader>e :let &conceallevel = (&conceallevel == 0 ? 2 : 0)<CR>
     let g:vimtex_syntax_conceal = {
           \ 'accents': 1,
           \ 'ligatures': 1,
@@ -45,16 +61,6 @@ if has('nvim')
     let g:vimtex_compiler_latexmk = {'aux_dir':'build/aux', 'out_dir':'build'}
 endif
 
-" general configs
-let mapleader=","
-set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
-set noswapfile
-set splitright splitbelow
-nnoremap L $
-nnoremap H ^
-syntax enable 
-filetype plugin indent on
-let g:markdown_fenced_languages = ['python', 'c', 'cpp', 'sh', 'bash=sh']
 
 " cd into directory of current file
 nnoremap <leader>c :cd %:p:h<CR>:pwd<CR>
@@ -156,6 +162,7 @@ autocmd filetype java noremap <leader>; :!javac % && java %<cr>
 autocmd filetype cpp noremap <leader>; :!g++ % -std=c++11 && ./a.out<cr>
 autocmd filetype c noremap <leader>; :!gcc % && ./a.out<cr>
 autocmd filetype c noremap <leader>: :!gcc % -lm && ./a.out<cr>
+autocmd filetype r nnoremap <leader>; :!Rscript %<CR>
 autocmd filetype markdown noremap <leader>; :w !wc -w<cr>
 autocmd filetype markdown noremap <expr> k (v:count == 0 ? 'gk' : 'k')
 autocmd filetype markdown noremap <expr> j (v:count == 0 ? 'gj' : 'j')
@@ -189,44 +196,54 @@ autocmd filetype markdown noremap <Leader><space> :call ToggleCheckbox()<CR>
 autocmd FileType markdown setl comments=b:*,b:-,b:+,n:>
 autocmd FileType markdown setl formatoptions+=r
 
-" Thank you Claude (Sonnet 4)
-function! s:OpenMarkdownLink()
+" Thank you Gemini
+function! s:Link()
     let line = getline('.')
     let col = col('.')
+    let [target, min_d] = ['', 9999]
+    let idx = 0
 
-    " Find all markdown links and pick the closest one
-    let links = []
-    let start = 0
+    " Find all [text](url) links
     while 1
-        let match = matchstrpos(line, '\v\[([^\]]+)\]\(([^\)]+)\)', start)
-        if match[1] == -1 | break | endif
-        let dist = min([abs(col - match[1]), abs(col - match[2])])
-        call add(links, {'dist': dist, 'url': matchstr(match[0], '\v\]\(\zs[^\)]+\ze\)')})
-        let start = match[2]
+        let [full, s, e] = matchstrpos(line, '\v\[[^]]*\]\([^)]*\)', idx)
+        if s == -1 | break | endif
+
+        " Distance: 0 if cursor is inside, otherwise dist to nearest edge
+        let d = (col >= s && col <= e) ? 0 : min([abs(col-s), abs(col-e)])
+
+        if d < min_d
+            let min_d = d
+            let target = matchstr(full, '\v]\(\zs[^)]+\ze')
+        endif
+        let idx = e
     endwhile
 
-    if empty(links) | echo "No link found" | return | endif
+    if empty(target) | echo "No link found" | return | endif
 
-    let url = sort(links, {a, b -> a.dist - b.dist})[0].url
-
-    if url =~# '^https\?://'
-        " Open URL
-        if exists('*netrw#BrowseX')
-            call netrw#BrowseX(url, 0)
-        else
-            call job_start([has('mac') ? 'open' : has('win32') ? 'start' : 'xdg-open', url])
-        endif
+    " Open HTTP(s) or File
+    if target =~# '^http'
+        let cmd = has('mac') ? 'open' : has('win32') ? 'explorer' : 'xdg-open'
+        call system(cmd . ' ' . shellescape(target) . (has('unix') ? ' &' : ''))
     else
-        " Open/create file
-        let filepath = expand('%:p:h') . '/' . substitute(url, '#.*', '', '')
-        if !filereadable(filepath) && input('Create "' . filepath . '"? (y/N): ') !=? 'y' | echo "File creation cancelled" | return | endif
-        if !filereadable(filepath) | call mkdir(fnamemodify(filepath, ':h'), 'p') | call writefile([], filepath) | endif
-        execute 'edit ' . fnameescape(filepath)
+        let [path; anchor] = split(target, '#')
+        let f = empty(path) ? expand('%:p') : resolve(expand('%:p:h') . '/' . path)
+
+        " Prompt to create if missing
+        if !filereadable(f)
+            if input('Create "' . path . '"? (y/N) ') !=? 'y' | redraw | return | endif
+            call mkdir(fnamemodify(f, ':h'), 'p')
+        endif
+        execute 'edit ' . fnameescape(f)
     endif
 endfunction
-autocmd FileType markdown nnoremap <buffer> <CR> :call <SID>OpenMarkdownLink()<CR>
 
-" A much faster vimgrep using regular grep + Quickfix List (Thanks again Claude)
+augroup MarkdownLinks
+    autocmd!
+    autocmd FileType markdown nnoremap <buffer> <CR> :call <SID>Link()<CR>
+augroup END
+
+
+" A much faster vimgrep using regular grep + Quickfix List (Thanks Claude)
 function! SearchWordUnderCursor()
     let word = expand('<cword>')
     if empty(word)
