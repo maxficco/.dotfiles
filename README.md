@@ -1,4 +1,4 @@
-I use [Vim](https://www.vim.org) (zealot) and [Zsh](https://zsh.org) (agnostic).
+I use [Vim](https://www.vim.org) and [Zsh](https://zsh.org).
 
 On my main laptop I use [MacOS](https://www.youtube.com/watch?v=dQw4w9WgXcQ), [Homebrew](https://brew.sh), and [Ghostty](https://ghostty.org).
 
