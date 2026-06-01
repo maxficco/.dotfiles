@@ -16,6 +16,7 @@ Plug 'morhetz/gruvbox'
 
 if has('nvim')
     Plug 'lervag/vimtex'
+    Plug 'vim-pandoc/vim-rmarkdown'
 endif
 
 call plug#end()
@@ -163,9 +164,12 @@ autocmd filetype cpp noremap <leader>; :!g++ % -std=c++11 && ./a.out<cr>
 autocmd filetype c noremap <leader>; :!gcc % && ./a.out<cr>
 autocmd filetype c noremap <leader>: :!gcc % -lm && ./a.out<cr>
 autocmd filetype r nnoremap <leader>; :!Rscript %<CR>
+autocmd filetype rmarkdown nnoremap <leader>; :RMarkdown pdf<CR>
 autocmd filetype markdown noremap <leader>; :w !wc -w<cr>
 autocmd filetype markdown noremap <expr> k (v:count == 0 ? 'gk' : 'k')
 autocmd filetype markdown noremap <expr> j (v:count == 0 ? 'gj' : 'j')
+autocmd filetype tex noremap <expr> k (v:count == 0 ? 'gk' : 'k')
+autocmd filetype tex noremap <expr> j (v:count == 0 ? 'gj' : 'j')
 autocmd filetype pdf noremap <leader>; :!open %<cr><cr><C-o>
 augroup FileTypeImages
   autocmd!

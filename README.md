@@ -9,10 +9,10 @@ On a mini server I also use [frp](https://github.com/fatedier/frp) with a cheap 
 ---
 I use [GNU Stow](https://www.gnu.org/software/stow/) to symlink my dotfiles:
 ```
-cd ~/.dotfiles`
-stow .
+cd ~/.dotfiles
+stow . --no-folding
 ```
-I'm taking a bit of a lazy approach (using stow on all of my dotfiles instead of individual subfolders).  To avoid issues in symlinked folders across different devices, my `.gitignore` contains `*` so all new files must be manually added.
+By using `--no-folding`, if folders (e.g. `~/.local/bin`) don't already exist, GNU stow will create the folder and then symlink each of the files within. Otherwise, the entire folder will be symlinked and any new files the system writes there will actually land inside `~/.dotfiles`, even if we don't want them to.
 
 ---
 to build a new NixOS system follow [these notes](.config/nixos/README.md)
