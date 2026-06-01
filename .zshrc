@@ -54,3 +54,5 @@ path=('/Users/maxficco/.juliaup/bin' $path)
 export PATH
 
 # <<< juliaup initialize <<<
+
+export PATH="$HOME/.local/bin:$PATH"
