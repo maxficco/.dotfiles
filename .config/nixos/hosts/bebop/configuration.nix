@@ -51,7 +51,7 @@ in {
     ];
 
     # temporary, for jailbreaking amazon echo:
-    services.modemmanager.enable = false;
+    services.ModemManager.enable = false;
     
     services.syncthing = {
         enable = true;
