@@ -47,7 +47,11 @@ in {
         vlc
         tmux
         prismlauncher
+        unzip
     ];
+
+    # temporary, for jailbreaking amazon echo:
+    services.modemmanager.enable = false;
     
     services.syncthing = {
         enable = true;
