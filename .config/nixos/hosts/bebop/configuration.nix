@@ -35,7 +35,7 @@ in {
         brightnessctl
         playerctl
         bat # for fzf in vim
-        neofetch
+        fastfetch
         cowsay
         ani-cli
         gcc
