@@ -74,7 +74,7 @@ in {
     networking.firewall.allowedTCPPorts = [ 25565 22000 4910 ];
     boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr"; # faster!
 
-    services.frp = {
+    services.frp.instances."" = {
         enable = true;
         role = "client";
         settings = {
