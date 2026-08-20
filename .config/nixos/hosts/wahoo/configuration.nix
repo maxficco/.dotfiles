@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
-let
-    secrets = import ./secrets.nix;
-in {
+{
     imports = [ ./hardware-configuration.nix ]; # make sure this file actually exists!
 
     boot.loader.systemd-boot.enable = true;
@@ -77,12 +75,13 @@ in {
     services.frp.instances."" = {
         enable = true;
         role = "client";
+        environmentFiles = [ "/etc/frp/frp.env" ];
         settings = {
             serverAddr = "server.maxfic.co";
             serverPort = 7000;
             auth = {
                 method = "token";
-                token = secrets.frpToken;
+                token = "{{ .Envs.FRP_TOKEN }}";
             };
             proxies = [
             {

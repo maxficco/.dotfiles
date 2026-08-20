@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
-let
-    secrets = import ./secrets.nix;
-in {
+{
     imports = [ ./hardware-configuration.nix ];
 
     # Use the systemd-boot EFI boot loader.
