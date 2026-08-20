@@ -35,7 +35,7 @@ in {
         brightnessctl
         playerctl
         bat # for fzf in vim
-        neofetch
+        fastfetch
         cowsay
         ani-cli
         gcc
@@ -47,7 +47,11 @@ in {
         vlc
         tmux
         prismlauncher
+        unzip
     ];
+
+    # temporary, for jailbreaking amazon echo:
+    systemd.services.ModemManager.enable = false;
     
     services.syncthing = {
         enable = true;
