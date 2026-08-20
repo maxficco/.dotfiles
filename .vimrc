@@ -1,5 +1,5 @@
 " automatically install vim plug
-" We force the directory to ~/.vim for both Vim and Neovim
+" We share the ~/.vim directory between both Vim and Neovim (see init.vim)
 let data_dir = '~/.vim'
 " let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
