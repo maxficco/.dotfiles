@@ -48,11 +48,9 @@ in {
         tmux
         prismlauncher
         unzip
+        syncthing
     ];
 
-    # temporary, for jailbreaking amazon echo:
-    systemd.services.ModemManager.enable = false;
-    
     services.syncthing = {
         enable = true;
         user = "maxficco";

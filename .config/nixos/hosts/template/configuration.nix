@@ -35,7 +35,7 @@
         vlc
         python3
         gcc
-        neofetch
+        fastfetch
         cowsay
         cbonsai
         tmux
