@@ -28,6 +28,7 @@ in {
 
     environment.systemPackages = with pkgs; [
         vim
+        neovim
         stow
         git
         bemenu

@@ -24,6 +24,7 @@ in {
 
     environment.systemPackages = with pkgs; [
         vim # Nano editor is installed by default
+        neovim
         git
         stow
         bemenu # minimal, like dmenu but for wayland
