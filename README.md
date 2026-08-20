@@ -14,5 +14,7 @@ stow . --no-folding
 ```
 By using `--no-folding`, if folders (e.g. `~/.local/bin`) don't already exist, GNU stow will create the folder and then symlink each of the files within. Otherwise, the entire folder will be symlinked and any new files the system writes there will actually land inside `~/.dotfiles`, even if we don't want them to.
 
+Stow ignores `.git/`, `.gitignore`, and this top-level `README.md` by default. You can specify an ignore list by creating `.stow-local-ignore`, but remember that it *replaces* the built-in default list rather than extending it, so be sure to include everything needed from the default list.
+
 ---
 to build a new NixOS system follow [these notes](.config/nixos/README.md)
