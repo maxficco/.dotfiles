@@ -80,3 +80,11 @@ $ nix store diff-closures /run/current-system ./result
 $ sudo nixos-rebuild switch --flake .
 ```
 > the *closure* of a store path is that path plus everything it transitively references, so this diffs the whole dependency graph rather than just what was changed in config.
+
+### clean up
+```
+sudo nix-collect-garbage --delete-older-than 30d # remove generations older than 30 days
+sudo nixos-rebuild boot # regenerate bootloader entries
+sudo nix store optimise # deduplicate the store via hard links
+```
+> use `-d` instead of `--delete-older-than` to nuke all generations but the current one
