@@ -7,7 +7,8 @@
 set -euo pipefail
 
 if [[ ${1:-} == --release ]]; then
-  ssh kindle 'rm -f /tmp/kindle-show
+  ssh kindle 'PATH=$PATH:/usr/sbin:/sbin
+    rm -f /tmp/kindle-show
     lipc-set-prop com.lab126.powerd preventScreenSaver 0
     /etc/init.d/framework start' >/dev/null
   exit
@@ -51,8 +52,10 @@ magick "${image}[0]" -background white -flatten \
   -colorspace Gray -define png:color-type=0 -define png:bit-depth=8 "$tmp/screen.png"
 
 # 5. Send it and draw it. The first time after each Kindle boot, also stop the
-#    screensaver and the Kindle's own UI so nothing draws over us.
-ssh kindle 'cat >/tmp/screen.png
+#    screensaver and the Kindle's own UI so nothing draws over us. SSH commands
+#    get a minimal PATH on the Kindle, so add /usr/sbin, where eips lives.
+ssh kindle 'PATH=$PATH:/usr/sbin:/sbin
+  cat >/tmp/screen.png
   if [ ! -e /tmp/kindle-show ]; then
     lipc-set-prop com.lab126.powerd preventScreenSaver 1
     /etc/init.d/framework stop
