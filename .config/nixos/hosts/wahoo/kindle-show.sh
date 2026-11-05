@@ -1,20 +1,47 @@
 #!/usr/bin/env bash
-# kindle-show: draw a file on the Kindle's 600x800 screen.
-#
-#   kindle-show FILE        type comes from the extension: md, html, txt, pdf, or an image
-#   kindle-show - TYPE      read from stdin, e.g.  echo hello | kindle-show - txt
-#   kindle-show --release   give the screen back to the Kindle's own UI
 set -euo pipefail
 
-if [[ ${1:-} == --release ]]; then
-  ssh kindle 'PATH=$PATH:/usr/sbin:/sbin
-    rm -f /tmp/kindle-show
-    lipc-set-prop com.lab126.powerd preventScreenSaver 0
-    /etc/init.d/framework start' >/dev/null
-  exit
-fi
+usage() {
+  cat <<'EOF'
+Usage: kindle-show [-l] [-n] FILE
+       kindle-show [-l] [-n] - TYPE
 
-file=${1:?usage: kindle-show FILE [TYPE]}
+Show a file on the Kindle's e-ink screen. FILE can be .md, .html, .txt,
+.pdf, or an image. Use - to read from stdin, with TYPE as one of those.
+
+Options:
+  -l, --landscape   turn the page sideways
+  -n, --no-flash    skip the black-white flash; faster, but old images can ghost
+  -r, --release     give the screen back to the Kindle
+  -h, --help        show this help
+
+Examples:
+  kindle-show notes.md
+  kindle-show -l slide.pdf
+  echo "build passed" | kindle-show - txt
+EOF
+}
+
+width=600 height=800 rotate=0 flash=yes
+while [[ ${1:-} == -?* ]]; do
+  case $1 in
+    -h | --help) usage; exit ;;
+    -l | --landscape) width=800 height=600 rotate=90 ;;
+    -n | --no-flash) flash=no ;;
+    -r | --release)
+      ssh kindle 'PATH=$PATH:/usr/sbin:/sbin
+        rm -f /tmp/kindle-show
+        lipc-set-prop com.lab126.powerd preventScreenSaver 0
+        /etc/init.d/framework start' >/dev/null
+      exit
+      ;;
+    *) usage >&2; exit 1 ;;
+  esac
+  shift
+done
+[[ $# -gt 0 ]] || { usage >&2; exit 1; }
+
+file=$1
 type=${2:-${file##*.}}
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
@@ -33,28 +60,28 @@ case $type in
   *) image=$file ;;
 esac
 
-# 2. Lay out HTML on a PDF page exactly the size of the screen.
+# 2. HTML -> PDF page the size of the screen.
 if [[ -v html ]]; then
-  echo '@page { size: 600px 800px; margin: 0 }' >"$tmp/page.css"
+  echo "@page { size: ${width}px ${height}px; margin: 0 }" >"$tmp/page.css"
   weasyprint -e utf-8 -s "$tmp/page.css" "$html" "$tmp/page.pdf"
   pdf=$tmp/page.pdf
 fi
 
-# 3. Turn the first page of the PDF into an image.
+# 3. First page of the PDF -> image.
 if [[ -v pdf ]]; then
   pdftoppm -png -singlefile -scale-to 800 "$pdf" "$tmp/page"
   image=$tmp/page.png
 fi
 
-# 4. Fit it to the screen as an 8-bit greyscale PNG, the format eips draws.
+# 4. Fit, rotate, and save as the 8-bit greyscale PNG eips draws.
 magick "${image}[0]" -background white -flatten \
-  -resize 600x800 -gravity center -extent 600x800 \
+  -resize "${width}x${height}" -gravity center -extent "${width}x${height}" -rotate "$rotate" \
   -colorspace Gray -define png:color-type=0 -define png:bit-depth=8 "$tmp/screen.png"
 
-# 5. Send it and draw it. The first time after each Kindle boot, also stop the
-#    screensaver and the Kindle's own UI so nothing draws over us. SSH commands
-#    get a minimal PATH on the Kindle, so add /usr/sbin, where eips lives.
-ssh kindle 'PATH=$PATH:/usr/sbin:/sbin
+# 5. Send and draw. Once per Kindle boot, stop the screensaver and stock UI.
+#    (SSH commands get a minimal PATH; eips is in /usr/sbin.) "flash=..." is
+#    joined onto the start of the Kindle-side script, setting a variable there.
+ssh kindle "flash=$flash" 'PATH=$PATH:/usr/sbin:/sbin
   cat >/tmp/screen.png
   if [ ! -e /tmp/kindle-show ]; then
     lipc-set-prop com.lab126.powerd preventScreenSaver 1
@@ -62,5 +89,5 @@ ssh kindle 'PATH=$PATH:/usr/sbin:/sbin
     sleep 2
     touch /tmp/kindle-show
   fi
-  eips -c
+  if [ "$flash" = yes ]; then eips -c; fi
   eips -g /tmp/screen.png' <"$tmp/screen.png" >/dev/null
