@@ -9,6 +9,19 @@
     networking.hostName = "wahoo";
     networking.networkmanager.enable = true; 
 
+    # Kindle e-ink display over USB
+    networking.networkmanager.ensureProfiles.profiles.kindle = {
+        connection = { id = "kindle"; type = "ethernet"; autoconnect = true; };
+        match.driver = "cdc_ether;rndis_host";
+        ipv4 = {
+            method = "manual";
+            address1 = "192.168.15.201/24";
+            never-default = true;
+        };
+        ipv6.method = "disabled";
+    };
+
+
     time.timeZone = "America/Detroit";
 
     nix.settings.experimental-features = ["nix-command" "flakes"]; # enable flakes
