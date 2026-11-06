@@ -13,6 +13,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
+Plug 'rust-lang/rust.vim'
 
 if has('nvim')
     Plug 'lervag/vimtex'
